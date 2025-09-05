@@ -142,6 +142,65 @@
                     </div>
                     <button type="submit" class="btn-submit">Avançar</button>
                 </form>
+
+                <!-- FORMULARIO TIME -->
+                <form id="form-time" style="display: none;">
+                    <div class="form-group">
+                        <label for="cnpj">CNPJ: (Opcional)</label>
+                        <input type="text" id="cnpj" placeholder="00.000.000/0000-00">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nome-time">Nome do Time: <span class="asterisco-obrigatorio">*</span></label>
+                        <input type="text" id="nome-time" placeholder="Nome completo do time" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nome-presidente">Nome do Presidente: <span class="asterisco-obrigatorio">*</span></label>
+                        <input type="text" id="nome-presidente" placeholder="Nome completo" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email-time">E-mail: <span class="asterisco-obrigatorio">*</span></label>
+                        <input type="email" id="email-time" placeholder="email@exemplo.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tel-profissional">Telefone Profissional: <span class="asterisco-obrigatorio">*</span></label>
+                        <div class="phone-input-group">
+                            <span class="country-code">
+                                <img src="../static/Assets/Brasil.png" alt="Bandeira do Brasil">
+                                +55
+                            </span>
+                            <input type="tel" id="tel-profissional" placeholder="(00) 00000-0000" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cidade-time">Cidade: <span class="asterisco-obrigatorio">*</span></label>
+                        <select id="cidade-time" required>
+                            <option value="" disabled selected>Selecione a cidade</option>
+                            <option value="sao-paulo">São Paulo</option>
+                            <option value="osasco">Osasco</option>
+                            <option value="guarulhos">Guarulhos</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="atletas-cpf">Nome e CPF das atletas: <span class="asterisco-obrigatorio">*</span></label>
+                        <text id="atletas-cpf" rows="5" placeholder="Ex: Maria Souza - 123.456.789-00" required></textarea>
+                    </div>
+
+                    <div class="form-group-checkbox">
+                        <input type="checkbox" id="terms-time" required>
+                        <label for="terms-time">Eu li e concordo com os <a href="#">termos e condições</a>.</label>
+                    </div>
+
+                    <button type="submit" class="btn-submit">Avançar</button>
+                </form>
+
+
+
             </div>
         </aside>
     </div>
@@ -169,6 +228,35 @@
             © Copyright 2025, Passe a Bola. Todos os direitos reservados.
         </div>
     </footer>
+
+    </footer>
+
+    <script>
+        // Seleciona os botões e os formulários
+        const btnIndividual = document.getElementById('btn-individual');
+        const btnTime = document.getElementById('btn-time');
+        const formIndividual = document.getElementById('form-individual');
+        const formTime = document.getElementById('form-time');
+
+        // Função para mostrar o formulário Individual
+        btnIndividual.addEventListener('click', function() {
+            formIndividual.style.display = 'block';
+            formTime.style.display = 'none';
+
+            btnIndividual.classList.add('active');
+            btnTime.classList.remove('active');
+        });
+
+        // Função para mostrar o formulário de Time
+        btnTime.addEventListener('click', function() {
+            formIndividual.style.display = 'none';
+            formTime.style.display = 'block';
+
+            btnTime.classList.add('active');
+            btnIndividual.classList.remove('active');
+        });
+    </script>
+
 
 </body>
 </html>
