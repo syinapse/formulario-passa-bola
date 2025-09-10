@@ -1,8 +1,6 @@
 # save this as app.py
-from flask import Flask, render_template, url_for
-
-app = Flask(__name__)
-
+from passaBola import app
+from flask import render_template, url_for
 @app.route("/")
 def hello():
     url_for('static', filename='style.css')
