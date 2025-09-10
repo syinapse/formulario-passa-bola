@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Copa Passe a Bola 2025</title>
-    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -104,23 +104,24 @@
                 </div>
                 
                 <!-- Formulário Individual -->
-                <form id="form-individual">
+                <form method="POST" id="form-individual">
                     <div class="form-group">
-                        <label for="nome">Nome completo: *</label>
-                        <input type="text" id="nome" placeholder="Seu nome completo" required>
+                        {{ form[0].full_name.label() }}
+                        {{ form[0].full_name(placeholder="Nome Completo") }}
+                    </div>                  
+                    <div class="form-group">
+                        {{ form[0].email.label() }}
+                        {{ form[0].email(placeholder="email@exemplo.com") }}
                     </div>
+
                     <div class="form-group">
-                        <label for="email">E-mail: *</label>
-                        <input type="email" id="email" placeholder="email@exemplo.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="celular">Número de Celular: *</label>
+                        {{ form[0].phone.label() }}
                         <div class="phone-input-group">
                             <span class="country-code">
                                 <img src="../static/Assets/Brasil.png" alt="Bandeira do Brasil">
                                 +55
                             </span>
-                            <input type="tel" id="celular" placeholder="(00) 00000-0000" required>
+                            {{ form[0].phone(placeholder="(00) 00000-0000") }}
                         </div>
                     </div>
                     <div class="form-group">
@@ -133,49 +134,51 @@
                         </select>
                     </div>
                      <div class="form-group">
-                        <label for="instagram">Instagram: (Opcional)</label>
-                        <input type="text" id="instagram" placeholder="@username">
+                        {{ form[0].instagram.label() }}
+                        {{ form[0].instagram(placeholder="@username")}}
                     </div>
                     <div class="form-group-checkbox">
                         <input type="checkbox" id="terms" required>
                         <label for="terms">Eu li e concordo com os <a href="#">termos e condições</a>.</label>
                     </div>
-                    <button type="submit" class="btn-submit">Avançar</button>
+
+                    {{ form[0].submit(class="btn-submit") }}
                 </form>
 
                 <!-- FORMULARIO TIME -->
                 <form id="form-time" style="display: none;">
                     <div class="form-group">
-                        <label for="cnpj">CNPJ: (Opcional)</label>
-                        <input type="text" id="cnpj" placeholder="00.000.000/0000-00">
+                        {{ form[1].cnpj.label() }}
+                        {{ form[1].cnpj(placeholder="00.000.000/0000-00")}}
                     </div>
 
                     <div class="form-group">
-                        <label for="nome-time">Nome do Time: <span class="asterisco-obrigatorio">*</span></label>
-                        <input type="text" id="nome-time" placeholder="Nome completo do time" required>
+                        {{ form[1].team_name.label() }}
+                        {{ form[1].team_name(placeholder="Nome completo do time")}}
                     </div>
 
                     <div class="form-group">
-                        <label for="nome-presidente">Nome do Presidente: <span class="asterisco-obrigatorio">*</span></label>
-                        <input type="text" id="nome-presidente" placeholder="Nome completo" required>
+                        {{ form[1].president_name.label() }}
+                        {{ form[1].president_name(placeholder="Nome completo") }}
                     </div>
 
                     <div class="form-group">
-                        <label for="email-time">E-mail: <span class="asterisco-obrigatorio">*</span></label>
-                        <input type="email" id="email-time" placeholder="email@exemplo.com" required>
+                        {{ form[1].email.label() }}
+                        {{ form[1].email(placeholder="email@exemplo.com") }}
                     </div>
 
                     <div class="form-group">
-                        <label for="tel-profissional">Telefone Profissional: <span class="asterisco-obrigatorio">*</span></label>
+                        {{ form[1].phone.label() }}
                         <div class="phone-input-group">
                             <span class="country-code">
                                 <img src="../static/Assets/Brasil.png" alt="Bandeira do Brasil">
                                 +55
                             </span>
-                            <input type="tel" id="tel-profissional" placeholder="(00) 00000-0000" required>
+                            {{ form[1].phone(placeholder="(00) 00000-0000") }}
                         </div>
                     </div>
 
+                    <!-- Implementar com BrasilAPI-->
                     <div class="form-group">
                         <label for="cidade-time">Cidade: <span class="asterisco-obrigatorio">*</span></label>
                         <select id="cidade-time" required>
@@ -187,8 +190,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="atletas-cpf">Nome e CPF das atletas: <span class="asterisco-obrigatorio">*</span></label>
-                        <textarea id="atletas-cpf" rows="5" placeholder="Ex: Maria Souza - 123.456.789-00" required></textarea>
+                        {{ form[1].players.label() }}
+                        {{ form[1].players(placeholder="Ex: Maria Souza - 123.456.789-00") }}
                     </div>
 
                     <div class="form-group-checkbox">
