@@ -62,14 +62,14 @@ class Teams():
         self.players = players
 
 
-    @property
-    def players(self):
-        return self.players
+    # @property
+    # def players(self):
+    #     return self.players
 
-    @property.setter
-    def players(self, value):
-        # Verificar se o CPF de cada jogadora é válido
-        pass
+    # @property.setter
+    # def players(self, value):
+    #     # Verificar se o CPF de cada jogadora é válido
+    #     pass
 
     @staticmethod
     def readTeams():

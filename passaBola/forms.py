@@ -1,20 +1,20 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, EmailField, SubmitField, TextAreaField
+from wtforms import StringField, EmailField, SubmitField, TextAreaField, DateField, ValidationError
 from wtforms.validators import DataRequired, Email, Length
+from passaBola.models import Player, Teams, checkCPF
 
-class PersonForm(FlaskForm):
+class PlayerForm(FlaskForm):
 
-    # def validate_full_name():
-    #    pass
-
-    # def validate_email(self, email_to_check):
-    #     data = User.readUsers()
-    #     for i in range(len(data)):
-    #         if data[i]['email'] == email_to_check.data:
-    #             raise ValidationError('Email already exists! Please try a differente email')
-
+    def validate_email(self, email_to_check):
+        data = Player.readPlayers()
+        for i in range(len(data)):
+            if data[i]['email'] == email_to_check.data:
+                raise ValidationError('Email already exists! Please try a differente email')
+   # def validate_cpf(self, cpf_to_check):
+   #     checkCPF(cpf=cpf_to_check)
     
     cpf = StringField(label="CPF: *", validators=[DataRequired(), Length(min=10, max=10)])
+    birthday = DateField(label="Data de nascimento: *", validators=[DataRequired()])
     full_name = StringField(label="Nome completo: *", validators=[DataRequired(), Length(min=10, max=50)])
     email = EmailField(label="Email: *", validators=[DataRequired(), Email()])
     phone = StringField(label="Celular: *", validators=[DataRequired(), Length(min=10, max=12)])

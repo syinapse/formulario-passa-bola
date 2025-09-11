@@ -112,7 +112,11 @@
                     <div class="form-group">
                         {{ form[0].full_name.label() }}
                         {{ form[0].full_name(placeholder="Nome Completo") }}
-                    </div>                  
+                    </div>
+                    <div class="form-group">
+                        {{ form[0].birthday.label() }}
+                        {{ form[0].birthday(placeholder="DD/MM/YYYY") }}
+                    </div>                   
                     <div class="form-group">
                         {{ form[0].email.label() }}
                         {{ form[0].email(placeholder="email@exemplo.com") }}
