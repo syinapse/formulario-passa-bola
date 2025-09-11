@@ -4,3 +4,4 @@ wtforms
 BrasilAPI
 uuid7
 dotenv
+requests
