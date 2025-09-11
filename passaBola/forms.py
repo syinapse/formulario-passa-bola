@@ -5,11 +5,11 @@ from passaBola.models import Player, Teams, checkCPF
 
 class PlayerForm(FlaskForm):
 
-    def validate_email(self, email_to_check):
-        data = Player.readPlayers()
-        for i in range(len(data)):
-            if data[i]['email'] == email_to_check.data:
-                raise ValidationError('Email already exists! Please try a differente email')
+    # def validate_email(self, email_to_check):
+    #     data = Player.readPlayers()
+    #     for i in range(len(data)):
+    #         if data[i]['email'] == email_to_check.data:
+    #             raise ValidationError('Email already exists! Please try a differente email')
    # def validate_cpf(self, cpf_to_check):
    #     checkCPF(cpf=cpf_to_check)
     

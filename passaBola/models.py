@@ -2,7 +2,8 @@ from requests import post
 from json import dump, load, dumps
 from uuid_extensions import uuid7str
 from passaBola import cpf_api_key
-database_path = "./database/database.json"
+from pathlib import Path
+database_path = Path("./passaBola/database/database.json")
 
 def readDatabase():
     with open(database_path, "r") as db:
@@ -27,10 +28,11 @@ def checkCPF(cpf, birthday):
 
 
 class Player():
-    def __init__(self, cpf, full_name, email, phone, city, instagram = None):
+    def __init__(self, cpf, full_name, birthday, email, phone, city = "são paulo", instagram = None):
         self.id = uuid7str() # Id único aleatório em UUID7
         self.cpf = cpf
         self.Full_name = full_name
+        self.Birthday = birthday
         self.Email = email
         self.Phone = phone
         self.City = city
@@ -42,17 +44,19 @@ class Player():
             data = load(pl)
         return data["players"]
     
-    def witePlayers(self):
+    def witeNewPlayer(self):
         db = readDatabase() # Todo o banco de dados
 
-        newPlayer = dumps(self.__dict__) # Converte o objeto Player para um dicionário e depois pelo método 'dumps' para um JSOn
+        newPlayer = dumps(self.__dict__) # Converte o objeto Player para um dicionário e depois pelo método 'dumps' para um JSON
+        print(newPlayer)
         db['players'].append(newPlayer)
-        with open(database_path, "a") as pl:
+        with open(database_path, "w") as pl:
             dump(db, pl)
 
 
 class Teams():
     def __init__(self, cnpj, team_name, president_name, email, phone, city, players):
+        self.id = uuid7str()
         self.Cnpj = cnpj
         self.Team_name = team_name
         self.president_name = president_name
