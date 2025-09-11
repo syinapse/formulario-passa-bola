@@ -105,31 +105,33 @@
                 
                 <!-- Formulário Individual -->
                 <form method="POST" id="form-individual">
+                    <!-- Importante para assegurar e receber o token CSF -->
+                    {{ form.hidden_tag() }}
                     <div class="form-group">
-                        {{ form[0].cpf.label() }}
-                        {{ form[0].cpf(placeholder="000.000.000-00") }}
+                        {{ form.cpf.label() }}
+                        {{ form.cpf(placeholder="000.000.000-00") }}
                     </div>   
                     <div class="form-group">
-                        {{ form[0].full_name.label() }}
-                        {{ form[0].full_name(placeholder="Nome Completo") }}
+                        {{ form.full_name.label() }}
+                        {{ form.full_name(placeholder="Nome Completo") }}
                     </div>
                     <div class="form-group">
-                        {{ form[0].birthday.label() }}
-                        {{ form[0].birthday() }}
+                        {{ form.birthday.label() }}
+                        {{ form.birthday() }}
                     </div>                   
                     <div class="form-group">
-                        {{ form[0].email.label() }}
-                        {{ form[0].email(placeholder="email@exemplo.com") }}
+                        {{ form.email.label() }}
+                        {{ form.email(placeholder="email@exemplo.com") }}
                     </div>
-
+                    
                     <div class="form-group">
-                        {{ form[0].phone.label() }}
+                        {{ form.phone.label() }}
                         <div class="phone-input-group">
                             <span class="country-code">
                                 <img src="../static/Assets/Brasil.png" alt="Bandeira do Brasil">
                                 +55
                             </span>
-                            {{ form[0].phone(placeholder="(00) 00000-0000") }}
+                            {{ form.phone(placeholder="(00) 00000-0000") }}
                         </div>
                     </div>
                     <div class="form-group">
@@ -141,48 +143,50 @@
                             <option value="guarulhos">Guarulhos</option>
                         </select>
                     </div>
-                     <div class="form-group">
-                        {{ form[0].instagram.label() }}
-                        {{ form[0].instagram(placeholder="@username")}}
+                    <div class="form-group">
+                        {{ form.instagram.label() }}
+                        {{ form.instagram(placeholder="@username")}}
                     </div>
                     <div class="form-group-checkbox">
                         <input type="checkbox" id="terms" required>
                         <label for="terms">Eu li e concordo com os <a href="#">termos e condições</a>.</label>
                     </div>
-
-                    {{ form[0].submit(class="btn-submit") }}
+                    
+                    {{ form.submit(class="btn-submit") }}
                 </form>
-
+                
                 <!-- FORMULARIO TIME -->
                 <form method="post" id="form-time" style="display: none;">
+                    <!-- Importante para assegurar e receber o token CSF -->
+                    {{ teamForm.hidden_tag() }}
                     <div class="form-group">
-                        {{ form[1].cnpj.label() }}
-                        {{ form[1].cnpj(placeholder="00.000.000/0000-00")}}
+                        {{ teamForm.cnpj.label() }}
+                        {{ teamForm.cnpj(placeholder="00.000.000/0000-00")}}
+                    </div>
+                    
+                    <div class="form-group">
+                        {{ teamForm.team_name.label() }}
+                        {{ teamForm.team_name(placeholder="Nome completo do time")}}
                     </div>
 
                     <div class="form-group">
-                        {{ form[1].team_name.label() }}
-                        {{ form[1].team_name(placeholder="Nome completo do time")}}
+                        {{ teamForm.president_name.label() }}
+                        {{ teamForm.president_name(placeholder="Nome completo") }}
                     </div>
 
                     <div class="form-group">
-                        {{ form[1].president_name.label() }}
-                        {{ form[1].president_name(placeholder="Nome completo") }}
+                        {{ teamForm.email.label() }}
+                        {{ teamForm.email(placeholder="email@exemplo.com") }}
                     </div>
 
                     <div class="form-group">
-                        {{ form[1].email.label() }}
-                        {{ form[1].email(placeholder="email@exemplo.com") }}
-                    </div>
-
-                    <div class="form-group">
-                        {{ form[1].phone.label() }}
+                        {{ teamForm.phone.label() }}
                         <div class="phone-input-group">
                             <span class="country-code">
                                 <img src="../static/Assets/Brasil.png" alt="Bandeira do Brasil">
                                 +55
                             </span>
-                            {{ form[1].phone(placeholder="(00) 00000-0000") }}
+                            {{ teamForm.phone(placeholder="(00) 00000-0000") }}
                         </div>
                     </div>
 
@@ -198,8 +202,8 @@
                     </div>
 
                     <div class="form-group">
-                        {{ form[1].players.label() }}
-                        {{ form[1].players(placeholder="Ex: Maria Souza - 123.456.789-00") }}
+                        {{ teamForm.players.label() }}
+                        {{ teamForm.players(placeholder="Ex: Maria Souza - 123.456.789-00") }}
                     </div>
 
                     <div class="form-group-checkbox">
@@ -207,7 +211,7 @@
                         <label for="terms-time">Eu li e concordo com os <a href="#">termos e condições</a>.</label>
                     </div>
 
-                    {{ form[1].submit(class="btn-submit") }}
+                    {{ teamForm.submit(class="btn-submit") }}
                 </form>
             </div>
         </aside>

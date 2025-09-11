@@ -10,9 +10,7 @@ from passaBola.models import Player, Teams
 def event_page():
     form = PlayerForm()
     teamForm = TeamForm()
-    print('VOU ENTRAR NO VALIDATE')
     if form.validate_on_submit():
-        print('DENTRO DO SUBMIT')
       #  print(cpf_api_key)
         newPlayer = Player( cpf=form.cpf.data, 
                             birthday=form.birthday.data,
@@ -21,13 +19,10 @@ def event_page():
                             phone=form.phone.data,
                             instagram=form.instagram.data)
         newPlayer.witeNewPlayer()
-        print('ESCREVI O TEXTO NO ARQUIVO DATABASE.JSON')
-        # for d in form.data.values():
-        #     print(d)
-        #     d = None
-    print('SAI DO VALIDATE')
-    if teamForm.validate_on_submit():
-        pass
+        for data in form.data.values():
+            data = ""
+  #  if teamForm.validate_on_submit():
+  #      pass
     
 
     # Se não tiver erros nas validações => O próprio website já verifica somente de colocar as validações nos inputs
@@ -35,4 +30,4 @@ def event_page():
         for error in form.errors.values():
             flash(f'There was an error with creating a user: {error}', category='danger')
 
-    return render_template("event.html", form=[form, teamForm])
+    return render_template("event.html", form=form, teamForm=teamForm)

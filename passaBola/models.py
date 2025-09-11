@@ -3,6 +3,7 @@ from json import dump, load, dumps
 from uuid_extensions import uuid7str
 from passaBola import cpf_api_key
 from pathlib import Path
+from datetime import datetime
 database_path = Path("./passaBola/database/database.json")
 
 def readDatabase():
@@ -31,12 +32,12 @@ class Player():
     def __init__(self, cpf, full_name, birthday, email, phone, city = "são paulo", instagram = None):
         self.id = uuid7str() # Id único aleatório em UUID7
         self.cpf = cpf
-        self.Full_name = full_name
-        self.Birthday = birthday
-        self.Email = email
-        self.Phone = phone
-        self.City = city
-        self.Instagram = instagram if instagram != None else "Não indicado"
+        self.full_name = full_name
+        self.birthday = birthday
+        self.email = email
+        self.phone = phone
+        self.city = city
+        self.instagram = instagram if instagram != None else "Não indicado"
 
     @staticmethod
     def readPlayers():
@@ -46,9 +47,9 @@ class Player():
     
     def witeNewPlayer(self):
         db = readDatabase() # Todo o banco de dados
-
-        newPlayer = dumps(self.__dict__) # Converte o objeto Player para um dicionário e depois pelo método 'dumps' para um JSON
+        newPlayer = self.__dict__ # Converte o objeto Player para um dicionário
         print(newPlayer)
+        newPlayer['birthday'] = newPlayer['birthday'].strftime("%d-%m-%Y")
         db['players'].append(newPlayer)
         with open(database_path, "w") as pl:
             dump(db, pl)

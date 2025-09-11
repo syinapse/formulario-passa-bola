@@ -5,3 +5,4 @@ BrasilAPI
 uuid7
 dotenv
 requests
+email_validator
