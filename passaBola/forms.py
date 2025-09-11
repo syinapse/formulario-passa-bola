@@ -14,6 +14,7 @@ class PersonForm(FlaskForm):
     #             raise ValidationError('Email already exists! Please try a differente email')
 
     
+    cpf = StringField(label="CPF: *", validators=[DataRequired(), Length(min=10, max=10)])
     full_name = StringField(label="Nome completo: *", validators=[DataRequired(), Length(min=10, max=50)])
     email = EmailField(label="Email: *", validators=[DataRequired(), Email()])
     phone = StringField(label="Celular: *", validators=[DataRequired(), Length(min=10, max=12)])
