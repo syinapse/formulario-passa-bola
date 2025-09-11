@@ -1,11 +1,30 @@
+from requests import post
 from json import dump, load, dumps
 from uuid_extensions import uuid7str
+from passaBola import cpf_api_key
 database_path = "./database/database.json"
 
 def readDatabase():
     with open(database_path, "r") as db:
         data = load(db)
     return data
+
+
+def checkCPF(cpf, birthday):
+    url = "https://api.cpfhub.io/api/cpf"
+    header = {
+        "x-api-key": cpf_api_key,
+        "Content-Type": "application/json"
+
+    }
+    data = {
+        "cpf": cpf,
+        "birthDate": birthday
+    }
+
+    data = post(url, json=data, headers=header).json()
+    return data
+
 
 class Player():
     def __init__(self, cpf, full_name, email, phone, city, instagram = None):

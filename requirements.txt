@@ -3,3 +3,4 @@ flask_wtf
 wtforms
 BrasilAPI
 uuid7
+dotenv
