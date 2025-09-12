@@ -4,14 +4,21 @@ from wtforms.validators import DataRequired, Email, Length
 from passaBola.models import Player, Teams, checkCPF
 
 class PlayerForm(FlaskForm):
+    data = Player.readPlayers()
 
-    # def validate_email(self, email_to_check):
-    #     data = Player.readPlayers()
-    #     for i in range(len(data)):
-    #         if data[i]['email'] == email_to_check.data:
-    #             raise ValidationError('Email already exists! Please try a differente email')
-   # def validate_cpf(self, cpf_to_check):
-   #     checkCPF(cpf=cpf_to_check)
+    def validate_email(self, email_to_check):
+        for i in range(len(self.data)):
+            if self.data[i]['email'] and self.data[i]['email'] == email_to_check.data:
+                raise ValidationError('O email digitado já foi cadastrado! Por favor insira outro.')
+
+    def validate_full_name(self, full_name_to_check):
+        for i in range(len(self.data)):
+            if self.data[i]['full_name'] and self.data[i]['full_name'] == full_name_to_check:
+                raise ValidationError('O nome inserido já foi cadastrado! Por favor insira outro.')   
+    def validate_cpf(self, cpf_to_check):
+        for i in range(len(self.data)):
+            if self.data[i]['cpf'] and self.data[i]['cpf'] == cpf_to_check:
+                raise ValidationError("O CPF inserido já foi inscrito. Por favor insira outro.")
     
     cpf = StringField(label="CPF: *", validators=[DataRequired(), Length(min=10, max=10)])
     birthday = DateField(label="Data de nascimento: *", validators=[DataRequired()])

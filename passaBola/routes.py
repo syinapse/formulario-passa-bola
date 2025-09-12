@@ -19,8 +19,9 @@ def event_page():
                             phone=form.phone.data,
                             instagram=form.instagram.data)
         newPlayer.witeNewPlayer()
-        for data in form.data.values():
-            data = ""
+       # for k in form.data.keys():
+       #     form.data[k] = ""1
+          
   #  if teamForm.validate_on_submit():
   #      pass
     
@@ -31,3 +32,8 @@ def event_page():
             flash(f'There was an error with creating a user: {error}', category='danger')
 
     return render_template("event.html", form=form, teamForm=teamForm)
+
+
+@app.route('/complete')
+def complete_page():
+    return render_template("complete.html")
