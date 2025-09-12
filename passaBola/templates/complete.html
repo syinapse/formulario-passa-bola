@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='complete.css')}}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <title>Registrado com sucesso!</title>
+    <title>Incrição Concluída!</title>
 </head>
 <body>
       <!-- HEADER -->
@@ -23,7 +24,11 @@
     </header>
 
     <main>
-        
+        <div class="main-container">
+            <h1>Incrição concluída com sucesso!</h1>
+            <p>A sua inscrição realizada no evento <span>NOME_EVENTO</span> foi realizada e registrada no sistema Passa a Bola! Confira o seu email para qualquer atualização do evento!</p>
+            <a class="btn-return" href="{{url_for('event_page')}}">Retornar</a>
+        </div>
     </main>
 </body>
 </html>

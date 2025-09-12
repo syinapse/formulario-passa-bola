@@ -1,6 +1,6 @@
 # save this as app.py
 from passaBola import app,cpf_api_key
-from flask import render_template, flash
+from flask import render_template, flash, redirect, url_for
 from passaBola.forms import PlayerForm, TeamForm
 from passaBola.models import Player, Teams
 
@@ -19,8 +19,7 @@ def event_page():
                             phone=form.phone.data,
                             instagram=form.instagram.data)
         newPlayer.witeNewPlayer()
-       # for k in form.data.keys():
-       #     form.data[k] = ""1
+        return redirect(url_for("complete_page"))
           
   #  if teamForm.validate_on_submit():
   #      pass

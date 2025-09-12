@@ -1,0 +1,44 @@
+main {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  min-height: 91.3dvh;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 16px;
+  gap: 0.8rem;
+  width: 40%;
+}
+
+.main-container h1 {
+    font-size: 2.5rem;
+    color: var(--roxo-principal);
+}
+
+.main-container span {
+    font-weight: 600;
+}
+
+.btn-return {
+  background: var(--roxo-principal);
+  border: 0;
+  color: white;
+  font-weight: bold;
+  width: fit-content;
+  border-radius: 10px;
+  text-decoration: none;
+  padding: 1rem;
+  font-size: 20px;
+  cursor: pointer;
+  transition: .5s;
+}
+
+.btn-return:hover {
+    background: #2d2755;
+}
