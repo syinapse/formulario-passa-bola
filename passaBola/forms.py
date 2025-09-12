@@ -20,6 +20,15 @@ class PlayerForm(FlaskForm):
             if self.data[i]['cpf'] and self.data[i]['cpf'] == cpf_to_check:
                 raise ValidationError("O CPF inserido já foi inscrito. Por favor insira outro.")
     
+    def validate_birthday(self, birthday_to_check):
+        from datetime import datetime
+        currentDate = datetime.now().date()
+        # Checar também com os dados do CPF que foram retornados (colocar em condição OR)
+        # O Limite de idade vai depender de evento pra evento, então deve ser pego em uma base de dados o valor quando o usuário cria-lo
+        age = int(((currentDate - birthday_to_check.data).days) / 365)
+        if age < 16:
+            raise ValidationError("Com a data de nascimento inserida, somente jogadoras com mais de 16 anos é permitida.")
+    
     cpf = StringField(label="CPF: *", validators=[DataRequired(), Length(min=10, max=10)])
     birthday = DateField(label="Data de nascimento: *", validators=[DataRequired()])
     full_name = StringField(label="Nome completo: *", validators=[DataRequired(), Length(min=10, max=50)])

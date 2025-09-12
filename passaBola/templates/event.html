@@ -23,6 +23,24 @@
         </a>
     </header>
 
+    <!-- Alerta de Campos invalidados -->
+     {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, msg in messages %}
+                    <div class="">
+                        <button
+                            type="button"
+                            data-dismiss="alert"
+                            aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        {{ msg }}
+                        {{ category }}
+                    </div>
+            {% endfor %}
+        {% endif%}
+    {% endwith %}
+
     <!-- CONTEÚDO -->
     <div class="container">
         <main>
