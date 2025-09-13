@@ -10,6 +10,10 @@
     --preto: #000000;
     --cinza-borda: #DDDDDD;
     --roxo-claro: #f5efff; 
+    --danger: #E05555;
+    --success: #5AE055;
+    --warning: #E0D755;
+    --info: #55B9E0;
 }
 
 /* Reset */
@@ -364,3 +368,8 @@ footer {
     background: #4b0082;     
 }
 
+.alert {
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+}
