@@ -28,7 +28,7 @@ def event_page():
     # Se não tiver erros nas validações => O próprio website já verifica somente de colocar as validações nos inputs
     if form.errors != {}:
         for error in form.errors.values():
-            flash(f'There was an error with creating a user: {error}', category='danger')
+            flash(f'Ocorreu um erro durante a inscrição: {error}', category='danger')
 
     return render_template("event.html", form=form, teamForm=teamForm)
 
