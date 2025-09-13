@@ -8,14 +8,14 @@ from passaBola.brasilApi import getBrazilStates
 @app.route("/", methods=["GET", "POST"])
 @app.route("/event", methods=["GET", "POST"])
 def event_page():
-    form = PlayerForm()
-    teamForm = TeamForm()
-    states = getBrazilStates()
+    form = PlayerForm(city="")
+    teamForm = TeamForm(city="")
     if form.validate_on_submit():
       #  print(cpf_api_key)
         newPlayer = Player( cpf=form.cpf.data, 
                             birthday=form.birthday.data,
                             full_name=form.full_name.data,
+                            city = form.city.data,
                             email=form.email.data,
                             phone=form.phone.data,
                             instagram=form.instagram.data)
@@ -31,7 +31,7 @@ def event_page():
         for error in form.errors.values():
             flash(f'Ocorreu um erro durante a inscrição: {error}', category='danger')
 
-    return render_template("event.html", form=form, teamForm=teamForm, brStates=states)
+    return render_template("event.html", form=form, teamForm=teamForm)
 
 
 @app.route('/complete')
