@@ -30,6 +30,7 @@
             {% for category, msg in messages %}
                     <div class="alert">
                         {{ msg }}
+                        <button id="close-btn">X</button>
                     </div>
                     <script>
                         function styleAlert(element, category) {
@@ -38,8 +39,13 @@
                             }
                             element.style.backgroundColor = `var(--${category})`
                         }
-                        const alert = document.querySelector(".alert-flash:last-of-type")
+                        const alert = document.querySelector(".alert:last-of-type")
                         styleAlert(alert, '{{ category }}')
+
+                        const close = document.getElementById("close-btn")
+                        close.addEventListener('click', () => {
+                            alert.style.display = 'none'
+                        });
                     </script>
             {% endfor %}
         {% endif%}
