@@ -1,11 +1,12 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, EmailField, SubmitField, TextAreaField, DateField, ValidationError
+from wtforms import StringField, EmailField, SubmitField, TextAreaField, DateField, SelectField ,ValidationError
 from wtforms.validators import DataRequired, Email, Length
 from passaBola.models import Player, Teams, checkCPF
+from passaBola.brasilApi import getStatesAtTuple
+states = getStatesAtTuple()
 
 class PlayerForm(FlaskForm):
     data = Player.readPlayers()
-
     def validate_email(self, email_to_check):
         for i in range(len(self.data)):
             if self.data[i]['email'] and self.data[i]['email'] == email_to_check.data:
@@ -33,6 +34,7 @@ class PlayerForm(FlaskForm):
     birthday = DateField(label="Data de nascimento: *", validators=[DataRequired()])
     full_name = StringField(label="Nome completo: *", validators=[DataRequired(), Length(min=10, max=50)])
     email = EmailField(label="Email: *", validators=[DataRequired(), Email()])
+    city = SelectField(label="Cidade: *", choices=states, validators=[DataRequired()])
     phone = StringField(label="Celular: *", validators=[DataRequired(), Length(min=10, max=12)])
     instagram = StringField(label="Instagram: (Opcional)")
     submit = SubmitField(label="Enviar Inscrição")
@@ -43,6 +45,7 @@ class TeamForm(FlaskForm):
     team_name = StringField(label="Nome do time: *", validators=[DataRequired(), Length(min=3, max=50)])
     president_name = StringField(label="Nome do presidente: * ", validators=[DataRequired(), Length(min=5, max=50)])
     email = EmailField(label="Email: *", validators=[DataRequired(), Email()])
+    city = SelectField(label="Cidade: *", choices=states, validators=[DataRequired()])
     phone = StringField(label="Telefone profissional: *", validators=[DataRequired(), Length(min=8, max=12)])
     players = TextAreaField(label="Nome e CPF das atletas: *", validators=[DataRequired()])
     submit = SubmitField(label="Enviar Inscrição")

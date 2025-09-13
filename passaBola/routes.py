@@ -3,13 +3,14 @@ from passaBola import app,cpf_api_key
 from flask import render_template, flash, redirect, url_for
 from passaBola.forms import PlayerForm, TeamForm
 from passaBola.models import Player, Teams
-
+from passaBola.brasilApi import getBrazilStates
 
 @app.route("/", methods=["GET", "POST"])
 @app.route("/event", methods=["GET", "POST"])
 def event_page():
     form = PlayerForm()
     teamForm = TeamForm()
+    states = getBrazilStates()
     if form.validate_on_submit():
       #  print(cpf_api_key)
         newPlayer = Player( cpf=form.cpf.data, 
@@ -30,7 +31,7 @@ def event_page():
         for error in form.errors.values():
             flash(f'Ocorreu um erro durante a inscrição: {error}', category='danger')
 
-    return render_template("event.html", form=form, teamForm=teamForm)
+    return render_template("event.html", form=form, teamForm=teamForm, brStates=states)
 
 
 @app.route('/complete')
