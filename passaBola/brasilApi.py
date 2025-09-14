@@ -10,7 +10,7 @@ def getBrazilStates():
 def getStatesAtTuple():
     states = getBrazilStates()
     allStates = list()
-    allStates.append(("", "Escolha uma Cidade"))
+    allStates.append(("", "Escolha um Estado"))
     for uf, name in states.items():
         allStates.append((uf.lower(), name))
     return allStates

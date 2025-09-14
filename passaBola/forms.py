@@ -1,4 +1,5 @@
 from flask_wtf import FlaskForm
+from flask import flash
 from wtforms import StringField, EmailField, SubmitField, TextAreaField, DateField, SelectField ,ValidationError
 from wtforms.validators import DataRequired, Email, Length
 from passaBola.models import Player, Teams, checkCPF
@@ -31,12 +32,12 @@ class PlayerForm(FlaskForm):
         if age < 16:
             raise ValidationError("Com a data de nascimento inserida, somente jogadoras com mais de 16 anos é permitida.")
     
-    cpf = StringField(label="CPF: *", validators=[DataRequired(), Length(min=10, max=10)])
-    birthday = DateField(label="Data de nascimento: *", validators=[DataRequired()])
-    full_name = StringField(label="Nome completo: *", validators=[DataRequired(), Length(min=10, max=50)])
-    email = EmailField(label="Email: *", validators=[DataRequired(), Email()])
-    state = SelectField(label="Estado: *", choices=states, validators=[DataRequired()])
-    phone = StringField(label="Celular: *", validators=[DataRequired(), Length(min=10, max=12)])
+    cpf = StringField(label="CPF: *", validators=[DataRequired("Informe o seu número de cpf"), Length(min=10, max=10)])
+    birthday = DateField(label="Data de nascimento: *", validators=[DataRequired("Informe a sua data de nascimento")])
+    full_name = StringField(label="Nome completo: *", validators=[DataRequired("O nome deve conter no mínimo 10 caractéres"), Length(min=10, max=50)])
+    email = EmailField(label="Email: *", validators=[DataRequired("O campo de email não pode estar vazio"), Email("Insira um email válido")])
+    state = SelectField(label="Estado: *", choices=states, validators=[DataRequired("Escolha um dos estados disponíveis")])
+    phone = StringField(label="Celular: *", validators=[DataRequired("Insira um número de telefone"), Length(min=10, max=12)])
     instagram = StringField(label="Instagram: (Opcional)")
     submit = SubmitField(label="Enviar Inscrição")
 
@@ -59,12 +60,9 @@ class TeamForm(FlaskForm):
                 if len(cpf) < 10 or len(cpf) > 10 and not cpf.isnumeric():
                     raise ValidationError("O CPF ou separador '-' estão incorretos (ex: Nome - 12345678901).")
             except:
-                raise ValidationError("Algum campo foi digitado incorretamente. Tente novamente")
+                flash("Algum campo foi digitado incorretamente. Tente novamente", category="danger")
 
-# temp = players_to_check.data.split('\r\n') for p in temp: if not p: raise Exception() try: playersSplited = p.strip().split(' ') # Forçando a formatação if playersSplited[1] != '-' or len(playersSplited[2]) < 10 or len(playersSplited[2]) > 10 and not playersSplited[2].isnumeric(): raise ValidationError("O CPF ou Nome informado estão incorretos.") except Exception: raise ValidationError("A formatação de jogadoras está incorreta!!")
-
-
-    cnpj = StringField(label="CNPJ (Opcional):", validators=[DataRequired("Insira o CNPJ"), Length(min=14, max=14)])
+    cnpj = StringField(label="CNPJ (Opcional):", validators=[Length(min=14, max=14)])
     team_name = StringField(label="Nome do time: *", validators=[DataRequired("Insira o nome do time"), Length(min=3, max=50)])
     president_name = StringField(label="Nome do presidente: * ", validators=[DataRequired("Insira o nome do presidente"), Length(min=5, max=50)])
     teamEmail = EmailField(label="Email: *", validators=[DataRequired("O email deve ser preenchido"), Email("Insira um email válido")])

@@ -48,7 +48,7 @@ def event_page():
           newTeam.writeTeams()
           return redirect(url_for("complete_page"))
         except Exception:
-           flash("Ocorreu um erro ")
+           flash("Ocorreu um erro enviar o formulário de Times. Confira os campos e tente novamente")
     else:
       if teamForm.errors != {}:
         for errors in teamForm.errors.values():
