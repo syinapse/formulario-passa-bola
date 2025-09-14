@@ -28,25 +28,12 @@
      {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
             {% for category, msg in messages %}
-                    <div class="alert">
+                <div class="box">
+                    <div class="alert" data-category="{{ category }}">
                         {{ msg }}
-                        <button id="close-btn">X</button>
+                        <button class="close-btn">X</button>
                     </div>
-                    <script>
-                        function styleAlert(element, category) {
-                            if (!element) {
-                                return;
-                            }
-                            element.style.backgroundColor = `var(--${category})`
-                        }
-                        const alert = document.querySelector(".alert:last-of-type")
-                        styleAlert(alert, '{{ category }}')
-
-                        const close = document.getElementById("close-btn")
-                        close.addEventListener('click', () => {
-                            alert.style.display = 'none'
-                        });
-                    </script>
+                </div>        
             {% endfor %}
         {% endif%}
     {% endwith %}
@@ -287,7 +274,25 @@
         });
 
         
-        
+        function styleAlert(element) {
+            const category = element.dataset.category;
+            if (!category) {
+                return;
+            }
+            element.style.backgroundColor = `var(--${category})`
+        }
+        const alerts = document.querySelectorAll(".alert")
+        alerts.forEach((alert) => {
+            styleAlert(alert)
+
+            const close_btn = alert.querySelector(".close-btn")
+            if (close_btn) {
+                close_btn.addEventListener("click", () => {
+                    alert.style.display = "none"
+                });
+            }
+
+        })
     </script>
 
 

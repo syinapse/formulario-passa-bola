@@ -7,6 +7,7 @@ states = getStatesAtTuple()
 
 class PlayerForm(FlaskForm):
     data = Player.readPlayers()
+    print(data[0]['full_name'])
     def validate_email(self, email_to_check):
         for i in range(len(self.data)):
             if self.data[i]['email'] and self.data[i]['email'] == email_to_check.data:
@@ -14,11 +15,12 @@ class PlayerForm(FlaskForm):
 
     def validate_full_name(self, full_name_to_check):
         for i in range(len(self.data)):
-            if self.data[i]['full_name'] and self.data[i]['full_name'] == full_name_to_check:
+            if self.data[i]['full_name'] and self.data[i]['full_name'] == full_name_to_check.data:
                 raise ValidationError('O nome inserido já foi cadastrado! Por favor insira outro.')   
+            
     def validate_cpf(self, cpf_to_check):
         for i in range(len(self.data)):
-            if self.data[i]['cpf'] and self.data[i]['cpf'] == cpf_to_check:
+            if self.data[i]['cpf'] and self.data[i]['cpf'] == cpf_to_check.data:
                 raise ValidationError("O CPF inserido já foi inscrito. Por favor insira outro.")
     
     def validate_birthday(self, birthday_to_check):

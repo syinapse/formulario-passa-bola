@@ -369,6 +369,8 @@ footer {
 }
 
 .alert {
+    display: flex;
+    justify-content: space-between;
     position: absolute;
     top: 15%;
     left: 50%;
