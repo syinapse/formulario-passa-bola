@@ -15,7 +15,7 @@ def event_page():
         newPlayer = Player( cpf=form.cpf.data, 
                             birthday=form.birthday.data,
                             full_name=form.full_name.data,
-                            state=form.city.data,
+                            state=form.state.data,
                             email=form.email.data.lower(),
                             phone=form.phone.data,
                             instagram=form.instagram.data)
