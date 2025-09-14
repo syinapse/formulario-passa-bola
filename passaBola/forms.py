@@ -34,10 +34,10 @@ class PlayerForm(FlaskForm):
     
     cpf = StringField(label="CPF: *", validators=[DataRequired("Informe o seu número de cpf"), Length(min=10, max=10)])
     birthday = DateField(label="Data de nascimento: *", validators=[DataRequired("Informe a sua data de nascimento")])
-    full_name = StringField(label="Nome completo: *", validators=[DataRequired("O nome deve conter no mínimo 10 caractéres"), Length(min=10, max=50)])
-    email = EmailField(label="Email: *", validators=[DataRequired("O campo de email não pode estar vazio"), Email("Insira um email válido")])
-    state = SelectField(label="Estado: *", choices=states, validators=[DataRequired("Escolha um dos estados disponíveis")])
-    phone = StringField(label="Celular: *", validators=[DataRequired("Insira um número de telefone"), Length(min=10, max=12)])
+    full_name = StringField(label="Nome completo: *", validators=[DataRequired("O nome da jogadora deve conter no mínimo 10 caractéres"), Length(min=10, max=50)])
+    email = EmailField(label="Email: *", validators=[DataRequired("O campo de email da jogadora não pode estar vazio"), Email("Insira um email válido da jogadora")])
+    state = SelectField(label="Estado: *", choices=states, validators=[DataRequired("Escolha um dos estados disponíveis em que a jogadora reside")])
+    phone = StringField(label="Celular: *", validators=[DataRequired("Insira um número de celular da jogadora"), Length(min=10, max=12)])
     instagram = StringField(label="Instagram: (Opcional)")
     submit = SubmitField(label="Enviar Inscrição")
 
@@ -45,7 +45,10 @@ class PlayerForm(FlaskForm):
 class TeamForm(FlaskForm):
     data = Teams.readTeams()
 
-    def validate_players(self, players_to_check):
+    def validate_players(self, players_to_check = ""):
+        if not players_to_check.data:
+            raise ValidationError("O campo de jogadoras do clube está vazio! Informe ao menos Uma jogadora")
+
         lines = players_to_check.data.strip().splitlines()
 
         if not lines:
@@ -60,13 +63,13 @@ class TeamForm(FlaskForm):
                 if len(cpf) < 10 or len(cpf) > 10 and not cpf.isnumeric():
                     raise ValidationError("O CPF ou separador '-' estão incorretos (ex: Nome - 12345678901).")
             except:
-                flash("Algum campo foi digitado incorretamente. Tente novamente", category="danger")
+                flash("Algum campo em TIMES foi digitado incorretamente. Tente novamente", category="danger")
 
-    cnpj = StringField(label="CNPJ (Opcional):", validators=[Length(min=14, max=14)])
-    team_name = StringField(label="Nome do time: *", validators=[DataRequired("Insira o nome do time"), Length(min=3, max=50)])
+    cnpj = StringField(label="CNPJ (Opcional):", validators=[Length(min=0, max=14)])
+    team_name = StringField(label="Nome do time: *", validators=[DataRequired("Insira o nome do time de no mínimo 3 caractéres"), Length(min=3, max=50)])
     president_name = StringField(label="Nome do presidente: * ", validators=[DataRequired("Insira o nome do presidente"), Length(min=5, max=50)])
-    teamEmail = EmailField(label="Email: *", validators=[DataRequired("O email deve ser preenchido"), Email("Insira um email válido")])
-    teamState = SelectField(label="Estado: *", choices=states, validators=[DataRequired("Insira um estado")])
-    teamPhone = StringField(label="Telefone profissional: *", validators=[DataRequired("Insira um telefone"), Length(min=8, max=12)])
+    teamEmail = EmailField(label="Email: *", validators=[DataRequired("O email do time deve ser preenchido"), Email("Insira um email válido do time")])
+    teamState = SelectField(label="Estado: *", choices=states, validators=[DataRequired("Insira um estado no campo de Times")])
+    teamPhone = StringField(label="Telefone profissional: *", validators=[DataRequired("Insira um telefone profissional ao time"), Length(min=8, max=12)])
     players = TextAreaField(label="Nome e CPF das atletas: *")
     submit = SubmitField(label="Enviar Inscrição")

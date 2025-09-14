@@ -59,9 +59,9 @@ class Player():
             dump(db, pl)
 
 class Teams():
-    def __init__(self, cnpj, team_name, president_name, email, phone, state, players = ""):
+    def __init__(self, team_name, president_name, email, phone, state, cnpj = None, players = ""):
         self.id = uuid7str()
-        self.cnpj = cnpj
+        self.cnpj = cnpj if cnpj != None else "NAO INFORMADO"
         self.team_name = team_name
         self.president_name = president_name
         self.email = email
@@ -102,8 +102,6 @@ class Teams():
     def formatPlayers(newPlayer):
         formatedPlayers = list()
         formatedPlayers.append({"id": newPlayer.id, "cpf": newPlayer.cpf, "name": newPlayer.name})
-        
-        print(f'Formated Players: {formatedPlayers}')
         return formatedPlayers
 
 
