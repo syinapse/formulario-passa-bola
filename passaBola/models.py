@@ -30,19 +30,19 @@ def checkCPF(cpf, birthday):
 
 
 class Player():
-    def __init__(self, cpf, full_name, birthday, email, phone, city, instagram = None):
+    def __init__(self, cpf, full_name, birthday, email, phone, state, instagram = None):
         self.id = uuid7str() # Id único aleatório em UUID7
         self.cpf = cpf
         self.full_name = full_name
         self.birthday = birthday
         self.email = email
         self.phone = phone
-        self.city = city
+        self.state = state
         self.instagram = instagram if instagram != None else "INEXISTENTE"
 
     @classmethod
     def TeamsPlayers(cls, cpf, name):
-        return cls(cpf=cpf, full_name=name, birthday=None, email=None, phone=None, city=None)
+        return cls(cpf=cpf, full_name=name, birthday=None, email=None, phone=None, state=None)
 
     @staticmethod
     def readPlayers():
