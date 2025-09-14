@@ -1,6 +1,6 @@
 # save this as app.py
 from passaBola import app,cpf_api_key
-from flask import render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for, request
 from passaBola.forms import PlayerForm, TeamForm
 from passaBola.models import Player, Teams
 from passaBola.brasilApi import getBrazilStates
@@ -10,8 +10,10 @@ from passaBola.brasilApi import getBrazilStates
 def event_page():
     form = PlayerForm(state="")
     teamForm = TeamForm(teamState="")
-    if form.data:
-      print('O FORM DE JOGADORAS TA VALIDO')
+
+    formType = request.form.get('form_type')
+
+    if formType == 'individuals':
       if form.validate_on_submit():
         #  print(cpf_api_key)
           newPlayer = Player( cpf=form.cpf.data, 
@@ -29,12 +31,8 @@ def event_page():
               for e in errors:
                 flash(f'{e}', category='danger')  
     
-          
-
-    if teamForm.data:
-      print('O FORM DE TIMES TA VALIDO')  
-      if teamForm.validate_on_submit():
-          print('O FORM DE TIMES TA VALIDO')  
+    if formType == 'teams':    
+      if teamForm.validate_on_submit():  
           newTeam = Teams(cnpj=teamForm.cnpj.data,
                           team_name=teamForm.team_name.data,
                           president_name=teamForm.president_name.data,

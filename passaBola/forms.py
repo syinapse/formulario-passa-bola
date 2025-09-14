@@ -39,7 +39,7 @@ class PlayerForm(FlaskForm):
     state = SelectField(label="Estado: *", choices=states, validators=[DataRequired("Escolha um dos estados disponíveis em que a jogadora reside")])
     phone = StringField(label="Celular: *", validators=[DataRequired("Insira um número de celular da jogadora"), Length(min=10, max=12)])
     instagram = StringField(label="Instagram: (Opcional)")
-    submit = SubmitField(label="Enviar Inscrição")
+    submit = SubmitField(label="Enviar Inscrição", name="individual")
 
 
 class TeamForm(FlaskForm):
@@ -72,4 +72,4 @@ class TeamForm(FlaskForm):
     teamState = SelectField(label="Estado: *", choices=states, validators=[DataRequired("Insira um estado no campo de Times")])
     teamPhone = StringField(label="Telefone profissional: *", validators=[DataRequired("Insira um telefone profissional ao time"), Length(min=8, max=12)])
     players = TextAreaField(label="Nome e CPF das atletas: *")
-    submit = SubmitField(label="Enviar Inscrição")
+    submit = SubmitField(label="Enviar Inscrição",name="teams")

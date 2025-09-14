@@ -3,6 +3,7 @@ const btnIndividual = document.getElementById("btn-individual");
 const btnTime = document.getElementById("btn-time");
 const formIndividual = document.getElementById("form-individual");
 const formTime = document.getElementById("form-time");
+const btns_submit = document.querySelectorAll(".btn-submit") 
 
 // Função para mostrar o formulário Individual
 btnIndividual.addEventListener("click", function () {
@@ -40,3 +41,12 @@ alerts.forEach((alert) => {
     });
   }
 });
+
+btns_submit.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    localStorage.setItem("forms", btn.getAttribute('name'))
+  })
+
+  // também joga direto no hidden input antes de enviar
+ // document.getElementsByName("form_type").value = btn.getAttribute("name");
+})
