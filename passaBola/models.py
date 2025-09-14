@@ -59,14 +59,14 @@ class Player():
             dump(db, pl)
 
 class Teams():
-    def __init__(self, cnpj, team_name, president_name, email, phone, city, players = ""):
+    def __init__(self, cnpj, team_name, president_name, email, phone, state, players = ""):
         self.id = uuid7str()
         self.cnpj = cnpj
         self.team_name = team_name
         self.president_name = president_name
         self.email = email
         self.phone = phone
-        self.city = city
+        self.state = state
         self.players = players
 
 

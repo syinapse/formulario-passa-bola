@@ -15,45 +15,41 @@ def event_page():
         newPlayer = Player( cpf=form.cpf.data, 
                             birthday=form.birthday.data,
                             full_name=form.full_name.data,
-                            city = form.city.data,
+                            state=form.city.data,
                             email=form.email.data.lower(),
                             phone=form.phone.data,
                             instagram=form.instagram.data)
         newPlayer.witeNewPlayer()
-        for k in form.data.keys():
-            form.data[k] = ""
         return redirect(url_for("complete_page"))
-          
+    else:
+        if form.errors != {}:
+          for errors in form.errors.values():
+              for e in errors:
+                flash(f'{e}', category='danger')    
+
+      
     if teamForm.validate_on_submit():
         newTeam = Teams(cnpj=teamForm.cnpj.data,
                         team_name=teamForm.team_name.data,
                         president_name=teamForm.president_name.data,
                         email=teamForm.teamEmail.data.lower(),
-                        city=teamForm.teamCity.data,
+                        state=teamForm.teamCity.data,
                         phone=teamForm.teamPhone.data)
         
-        playersList = []
-        temp = teamForm.players.data.strip().splitlines()
-        for pl in temp:
-            split = pl.split('-')
-            newPlayer = Player.TeamsPlayers(cpf=split[1].strip(), name=split[0].strip())
-            # Adicionando a lista de jogadoras formatadas
-            playersList.append(newPlayer)
-        newTeam.players = playersList
-        newTeam.writeTeams()
-     #   for k in teamForm.data.keys():
-     #       form.data[k] = ""
-        return redirect(url_for("complete_page"))
-
-
-    # Se não tiver erros nas validações => O próprio website já verifica somente de colocar as validações nos inputs
-    
-    if form.cpf.data:
-      if form.errors != {}:
-        for errors in form.errors.values():
-            for e in errors:
-              flash(f'{e}', category='danger')
-    elif teamForm.cnpj.data:
+        try:
+          playersList = []
+          temp = teamForm.players.data.strip().splitlines()
+          for pl in temp:
+              split = pl.split('-')
+              newPlayer = Player.TeamsPlayers(cpf=split[1].strip(), name=split[0].strip())
+              # Adicionando a lista de jogadoras formatadas
+              playersList.append(newPlayer)
+          newTeam.players = playersList
+          newTeam.writeTeams()
+          return redirect(url_for("complete_page"))
+        except Exception:
+           flash("Ocorreu um erro ")
+    else:
       if teamForm.errors != {}:
         for errors in teamForm.errors.values():
             for e in errors:
