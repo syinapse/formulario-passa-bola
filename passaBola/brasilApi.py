@@ -1,6 +1,5 @@
 from requests import get
 
-
 def getBrazilStates():
     states = {}
     response = get("https://brasilapi.com.br/api/ibge/uf/v1")

@@ -1,6 +1,7 @@
 from requests import post
 from json import dump, load, dumps
 from uuid_extensions import uuid7str
+from wtforms import ValidationError
 from passaBola import cpf_api_key
 from pathlib import Path
 from datetime import datetime
@@ -29,7 +30,7 @@ def checkCPF(cpf, birthday):
 
 
 class Player():
-    def __init__(self, cpf, full_name, birthday, email, phone, city = "são paulo", instagram = None):
+    def __init__(self, cpf, full_name, birthday, email, phone, city, instagram = None):
         self.id = uuid7str() # Id único aleatório em UUID7
         self.cpf = cpf
         self.full_name = full_name
@@ -37,7 +38,11 @@ class Player():
         self.email = email
         self.phone = phone
         self.city = city
-        self.instagram = instagram if instagram != None else "Não indicado"
+        self.instagram = instagram if instagram != None else "INEXISTENTE"
+
+    @classmethod
+    def TeamsPlayers(cls, cpf, name):
+        return cls(cpf=cpf, full_name=name, birthday=None, email=None, phone=None, city=None)
 
     @staticmethod
     def readPlayers():
@@ -48,18 +53,16 @@ class Player():
     def witeNewPlayer(self):
         db = readDatabase() # Todo o banco de dados
         newPlayer = self.__dict__ # Converte o objeto Player para um dicionário
-        print(newPlayer)
         newPlayer['birthday'] = newPlayer['birthday'].strftime("%d-%m-%Y")
         db['players'].append(newPlayer)
         with open(database_path, "w") as pl:
             dump(db, pl)
 
-
 class Teams():
-    def __init__(self, cnpj, team_name, president_name, email, phone, city, players):
+    def __init__(self, cnpj, team_name, president_name, email, phone, city, players = ""):
         self.id = uuid7str()
-        self.Cnpj = cnpj
-        self.Team_name = team_name
+        self.cnpj = cnpj
+        self.team_name = team_name
         self.president_name = president_name
         self.email = email
         self.phone = phone
@@ -84,11 +87,26 @@ class Teams():
     
     def writeTeams(self):
         db = readDatabase()
-        newTeam = dumps(self.__dict__)
+
+        newTeam = self.__dict__
+        
+        if newTeam['players']:
+            for i in range(len(newTeam["players"])):
+                newTeam['players'][i] = newTeam['players'][i].__dict__
 
         db['teams'].append(newTeam)
         with open(database_path, 'w') as tm:
             dump(db, tm)
+
+    @staticmethod
+    def formatPlayers(newPlayer):
+        formatedPlayers = list()
+        formatedPlayers.append({"id": newPlayer.id, "cpf": newPlayer.cpf, "name": newPlayer.name})
+        
+        print(f'Formated Players: {formatedPlayers}')
+        return formatedPlayers
+
+
 
 class Events():
     pass

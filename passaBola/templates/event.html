@@ -185,25 +185,25 @@
                     </div>
 
                     <div class="form-group">
-                        {{ teamForm.email.label() }}
-                        {{ teamForm.email(placeholder="email@exemplo.com") }}
+                        {{ teamForm.teamEmail.label() }}
+                        {{ teamForm.teamEmail(placeholder="email@exemplo.com") }}
                     </div>
 
                     <div class="form-group">
-                        {{ teamForm.phone.label() }}
+                        {{ teamForm.teamPhone.label() }}
                         <div class="phone-input-group">
                             <span class="country-code">
                                 <img src="../static/Assets/Brasil.png" alt="Bandeira do Brasil">
                                 +55
                             </span>
-                            {{ teamForm.phone(placeholder="(00) 00000-0000") }}
+                            {{ teamForm.teamPhone(placeholder="(00) 00000-0000") }}
                         </div>
                     </div>
 
                     <!-- Implementar com BrasilAPI-->
                     <div class="form-group">
-                        {{ form.city.label() }}
-                        {{ form.city() }}
+                        {{ teamForm.teamCity.label() }}
+                        {{ teamForm.teamCity() }}
                     </div>
 
                     <div class="form-group">
