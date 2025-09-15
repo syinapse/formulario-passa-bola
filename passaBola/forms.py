@@ -32,7 +32,7 @@ class PlayerForm(FlaskForm):
         if age < 16:
             raise ValidationError("Com a data de nascimento inserida, somente jogadoras com mais de 16 anos é permitida.")
     
-    cpf = StringField(label="CPF: *", validators=[DataRequired("Informe o seu número de cpf"), Length(min=10, max=10)])
+    cpf = StringField(label="CPF: *", validators=[DataRequired("Informe o seu número de cpf"), Length(min=11, max=11)])
     birthday = DateField(label="Data de nascimento: *", validators=[DataRequired("Informe a sua data de nascimento")])
     full_name = StringField(label="Nome completo: *", validators=[DataRequired("O nome da jogadora deve conter no mínimo 10 caractéres"), Length(min=10, max=50)])
     email = EmailField(label="Email: *", validators=[DataRequired("O campo de email da jogadora não pode estar vazio"), Email("Insira um email válido da jogadora")])
