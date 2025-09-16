@@ -4,6 +4,13 @@ O Projeto consiste em um portal web de inscrições de jogadoras e times para o 
 
 > [!IMPORTANT]
 > O Projeto está em desenvolvimento, portanto podem ocorrer bugs
+## Desenvolvido por Synapse
+* Carlos Eduardo Sanches Mariano RM: 561756
+* Leonardo Eiji Kina RM: 562784
+* Luís Scacchetti Mariano RM: 562241
+* Rodrigo do Santos Abubakir RM: 561479
+* Vitor Ramos de Farias RM: 561958
+
 
 ##  Como executar o Projeto
 
