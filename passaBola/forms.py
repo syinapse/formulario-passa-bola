@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask import flash
-from wtforms import StringField, EmailField, SubmitField, TextAreaField, DateField, SelectField ,ValidationError
+from wtforms import StringField, EmailField, SubmitField, TextAreaField, DateField, SelectField ,ValidationError, PasswordField
 from wtforms.validators import DataRequired, Email, Length
 from passaBola.models import Player, Teams
 from passaBola.brasilApi import getStatesAtTuple
@@ -73,3 +73,8 @@ class TeamForm(FlaskForm):
     teamPhone = StringField(label="Telefone profissional: *", validators=[DataRequired("Insira um telefone profissional ao time"), Length(min=8, max=12)])
     players = TextAreaField(label="Nome e CPF das atletas: *")
     submit = SubmitField(label="Enviar Inscrição",name="teams")
+
+class LoginForm(FlaskForm):
+    email = EmailField(label="Email", validators=[DataRequired("Campo Obrigatório"), Email("email não cadastrado")])
+    password = PasswordField(label="Senha", validators=[DataRequired("Campo Obrigatório")])
+    submit = SubmitField(label="Entrar")

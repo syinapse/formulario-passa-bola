@@ -1,13 +1,7 @@
-{% extends 'base.html' %}
-{% block title %}
-  Evento
-{% endblock %}
-
-{% block csslink %} 
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}"/>
-{% endblock %}
-
-{% block content%}
+{% extends 'base.html' %} {% block title %} Evento {% endblock %} {% block
+csslink %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}" />
+{% endblock %} {% block content%}
 <div class="container">
   <main>
     <div class="share-icons">
@@ -21,12 +15,11 @@
       A maior vitrine do futebol feminino amador está de volta!
     </p>
     <p>
-      A Copa Passe a Bola é mais do que um torneio: é uma celebração da
-      força, talento e paixão das mulheres no futebol. Em sua segunda
-      edição, queremos descobrir novos talentos, fortalecer a comunidade e
-      oferecer uma experiência única de competição, visibilidade e
-      oportunidade. Traga seu time ou inscreva-se individualmente e venha
-      fazer história!
+      A Copa Passe a Bola é mais do que um torneio: é uma celebração da força,
+      talento e paixão das mulheres no futebol. Em sua segunda edição, queremos
+      descobrir novos talentos, fortalecer a comunidade e oferecer uma
+      experiência única de competição, visibilidade e oportunidade. Traga seu
+      time ou inscreva-se individualmente e venha fazer história!
     </p>
 
     <div class="event-details">
@@ -43,26 +36,25 @@
           <p>
             A Copa Passe a Bola 2025 é um torneio de Futebol de Campo (11
             jogadoras) voltado para atletas amadoras acima de 16 anos. O
-            objetivo é promover integração, revelar talentos e criar um
-            ambiente seguro e profissional para a prática do esporte.
+            objetivo é promover integração, revelar talentos e criar um ambiente
+            seguro e profissional para a prática do esporte.
           </p>
         </li>
         <li>
           <strong>Formato da Competição</strong>
           <ul>
             <li>
-              Fase de Grupos: As equipes serão divididas em grupos e jogarão
-              em turno único. As melhores classificadas avançam para a fase
+              Fase de Grupos: As equipes serão divididas em grupos e jogarão em
+              turno único. As melhores classificadas avançam para a fase
               eliminatória.
             </li>
             <li>
-              Fase Eliminatória (mata-mata): Jogos únicos de quartas de
-              final, semifinal e final.
+              Fase Eliminatória (mata-mata): Jogos únicos de quartas de final,
+              semifinal e final.
             </li>
             <li>
               Local dos Jogos: Campos parceiros na cidade de São Paulo. Os
-              locais exatos serão divulgados após o encerramento das
-              inscrições.
+              locais exatos serão divulgados após o encerramento das inscrições.
             </li>
           </ul>
         </li>
@@ -70,8 +62,8 @@
           <strong>Categorias de Inscrição</strong>
           <ul>
             <li>
-              <b>Inscrição de Time:</b> Equipes já formadas com no mínimo 11
-              e no máximo 15 jogadoras, mais comissão técnica.
+              <b>Inscrição de Time:</b> Equipes já formadas com no mínimo 11 e
+              no máximo 15 jogadoras, mais comissão técnica.
             </li>
             <li>
               <b>Inscrição Individual:</b> Para jogadoras sem time. A
@@ -102,9 +94,7 @@
         <li>
           <strong>Premiação</strong>
           <ul>
-            <li>
-              Equipe Campeã: Troféu, medalhas e prêmio de R$ 3.000,00.
-            </li>
+            <li>Equipe Campeã: Troféu, medalhas e prêmio de R$ 3.000,00.</li>
             <li>Vice-Campeã: Troféu, medalhas e prêmio de R$ 1.500,00.</li>
             <li>
               Destaques Individuais: Artilheira, Melhor Goleira e Craque do
@@ -124,9 +114,7 @@
         <button class="tab-button active" id="btn-individual" type="button">
           1. Individual
         </button>
-        <button class="tab-button" id="btn-time" type="button">
-          2. Time
-        </button>
+        <button class="tab-button" id="btn-time" type="button">2. Time</button>
       </div>
 
       <!-- Formulário Individual -->
@@ -135,13 +123,13 @@
         {{ form.hidden_tag() }}
 
         <!-- campo escondido que vai receber o valor do localStorage -->
-        <input type="hidden" name="form_type" value="individuals">
+        <input type="hidden" name="form_type" value="individuals" />
         <div class="form-group">
-          {{ form.cpf.label() }} {{ form.cpf(placeholder="00000000000")
-          }}
+          {{ form.cpf.label() }} {{ form.cpf(placeholder="00000000000") }}
         </div>
         <div class="form-group">
-          {{ form.full_name.label() }} {{ form.full_name(placeholder="Nome Completo") }}
+          {{ form.full_name.label() }} {{ form.full_name(placeholder="Nome
+          Completo") }}
         </div>
         <div class="form-group">
           {{ form.birthday.label() }} {{ form.birthday() }}
@@ -155,10 +143,7 @@
           {{ form.phone.label() }}
           <div class="phone-input-group">
             <span class="country-code">
-              <img
-                src="../static/Assets/Brasil.png"
-                alt="Bandeira do Brasil"
-              />
+              <img src="../static/assets/Brasil.png" alt="Bandeira do Brasil" />
               +55
             </span>
             {{ form.phone(placeholder="(00) 00000-0000") }}
@@ -174,8 +159,7 @@
         <div class="form-group-checkbox">
           <input type="checkbox" id="terms" required />
           <label for="terms"
-            >Eu li e concordo com os
-            <a href="#">termos e condições</a>.</label
+            >Eu li e concordo com os <a href="#">termos e condições</a>.</label
           >
         </div>
 
@@ -188,7 +172,7 @@
         {{ teamForm.hidden_tag() }}
 
         <!-- campo escondido que vai receber o valor do localStorage -->
-        <input type="hidden" name="form_type" value="teams">
+        <input type="hidden" name="form_type" value="teams" />
         <div class="form-group">
           {{ teamForm.cnpj.label() }} {{
           teamForm.cnpj(placeholder="00.000.000/0000-00")}}
@@ -213,10 +197,7 @@
           {{ teamForm.teamPhone.label() }}
           <div class="phone-input-group">
             <span class="country-code">
-              <img
-                src="../static/Assets/Brasil.png"
-                alt="Bandeira do Brasil"
-              />
+              <img src="../static/assets/Brasil.png" alt="Bandeira do Brasil" />
               +55
             </span>
             {{ teamForm.teamPhone(placeholder="(00) 00000-0000") }}
@@ -229,16 +210,14 @@
         </div>
 
         <div class="form-group">
-          {{ teamForm.players.label() }} {{
-          teamForm.players(placeholder="Ex: Maria Souza - 123.456.789-00")
-          }}
+          {{ teamForm.players.label() }} {{ teamForm.players(placeholder="Ex:
+          Maria Souza - 123.456.789-00") }}
         </div>
 
         <div class="form-group-checkbox">
           <input type="checkbox" id="terms-time" required />
           <label for="terms-time"
-            >Eu li e concordo com os
-            <a href="#">termos e condições</a>.</label
+            >Eu li e concordo com os <a href="#">termos e condições</a>.</label
           >
         </div>
 

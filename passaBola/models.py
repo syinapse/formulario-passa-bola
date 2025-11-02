@@ -1,15 +1,19 @@
-from requests import post
-from json import dump, load, dumps
+from json import dump, load
 from uuid_extensions import uuid7str
-from wtforms import ValidationError
 from pathlib import Path
-from datetime import datetime
+from flask_login import UserMixin
+from passaBola import bcrypt, loginManager
+
 database_path = Path("./passaBola/database/database.json")
 
 def readDatabase():
     with open(database_path, "r") as db:
         data = load(db)
     return data
+
+@loginManager.user_loader
+def load_user(user_id):
+    return User.findUserById(user_id)
 
 # # Função para validar um CPF e data de nascimento através de uma API externa.
 # def checkCPF(cpf, birthday):
@@ -97,3 +101,118 @@ class Teams():
 # Classe placeholder para futuros desenvolvimentos de Eventos.
 class Events():
     pass
+
+
+class User(UserMixin):
+    def __init__(self, username, password, email, cpf, phone, state):
+        self.id = uuid7str()
+        self.cpf = cpf
+        self.username = username
+        self.paswword = password
+        self.email = email
+        self.phone = phone
+        self.state = state
+
+    @property
+    def password(self):
+        return self.password
+    
+    @password.setter
+    def password(self, value):
+        self.hashPassword = bcrypt.generate_password_hash(value).decode()
+
+    @classmethod
+    def isValidPassword(self, attempedPassword):
+        return bcrypt.check_password_hash(self.hashPassword, attempedPassword)
+    
+    @classmethod
+    def findUserByEmail(self, email):
+        all_users = User.readUsers()
+        for user_data in all_users:
+            # user_id vem como string, o id no seu JSON é um número
+            if user_data['email'] == email:
+                # Recria o objeto User com os dados do "banco"
+                # Importante: Não passe a senha aqui para não hashear de novo!
+                user = User(username=user_data['username'],
+                                email=user_data['email'],
+                                password=user_data['password'],
+                                cpf=user_data['cpf'],
+                                phone=user_data['phone'],
+                                state=user_data['state'])
+                user.id = user_data['id'] # Garante que o ID seja o mesmo do banco
+                return user
+        return None
+    
+    @classmethod
+    def findUserById(self, userid):
+        all_users = User.readUsers()
+        for user_data in all_users:
+            # user_id vem como string, o id no seu JSON é um número
+            if user_data['id'] == userid:
+                # Recria o objeto User com os dados do "banco"
+                # Importante: Não passe a senha aqui para não hashear de novo!
+                user = User(username=user_data['username'],
+                                email=user_data['email'],
+                                password=user_data['password'],
+                                cpf=user_data['cpf'],
+                                phone=user_data['phone'],
+                                state=user_data['state'])
+                user.id = user_data['id'] # Garante que o ID seja o mesmo do banco
+                return user
+        return None
+    
+    @staticmethod
+    def readUsers():
+        """
+        Read all users registered in the system
+        """
+        with open(database_path, "r") as f:
+            data = load(f)
+        return data['users']
+
+    @classmethod
+    def writeNewUser(self):
+        """
+        Write the current new user created on JSON database
+        """
+        data = readDatabase()
+        newUser = { "id": self.id,
+                    "username": self.username,
+                    "email": self.email,
+                    "password": self.hashPassword,
+                    "cpf": self.cpf,
+                    "phone": self.phone,
+                    "state": self.state  
+                    }
+        data['users'].append(newUser)
+        with open(database_path, "w") as f:
+            dump(data, f)
+
+
+# class Database():
+#     @staticmethod
+#     def readUsers(key):
+#         """
+#         Read all users registered in the system
+#         """
+#         with open(database_path, "r") as f:
+#             data = load(f)
+#         return data[key]
+
+#     @staticmethod
+#     def writeNewUser(self):
+#         """
+#         Write the current new user created on JSON database
+#         """
+#         data = readDatabase()
+#         newUser = { "id": self.id,
+#                     "username": self.username,
+#                     "email": self.email,
+#                     "password": self.hashPassword,
+#                     "cpf": self.cpf,
+#                     "phone": self.phone,
+#                     "state": self.state  
+#                     }
+#         data['users'].append(newUser)
+#         with open(database_path, "w") as f:
+#             dump(data, f)

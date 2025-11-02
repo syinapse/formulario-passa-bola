@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}
+  Login passa a bola
+{% endblock %}
+
+{% block csslink %} 
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}"/>
+{% endblock %}
+
+{% block content %}
+<h1>Bem vindo a área admin!</h1>
+<a href="#" class="btn btn-lg btn-block btn-primary" role="button">Sair</a>
+{% endblock%}

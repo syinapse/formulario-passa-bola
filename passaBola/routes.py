@@ -2,11 +2,28 @@
 # save this as app.py
 from passaBola import app,cpf_api_key
 from flask import render_template, flash, redirect, url_for, request
-from passaBola.forms import PlayerForm, TeamForm
-from passaBola.models import Player, Teams
+from passaBola.forms import PlayerForm, TeamForm, LoginForm
+from passaBola.models import Player, Teams, User
 from passaBola.brasilApi import getBrazilStates
+from flask_login import login_user, logout_user, login_required
 
 # Define a rota para a página principal do formulário, aceitando métodos GET e POST.
+@app.route("/login", methods=["GET", "POST"])
+def login_page():
+    loginform = LoginForm()
+
+    if loginform.validate_on_submit():
+      attemptedUser = User.findUserByEmail(loginform.email.data)
+
+      if (not (attemptedUser or attemptedUser.isValidPassword(loginform.password.data))):
+        flash("Email ou senha estão incorretos... Tente novamente.", category="danger")
+      login_user(attemptedUser)
+      flash("Acesso concedido!", category="success")
+      return redirect(url_for('admin_page'))
+      
+    return render_template("login.html", form=loginform)
+
+# precisa obter o parametro como Id par pegar os dados como /event/id ou /event?id=id
 @app.route("/", methods=["GET", "POST"])
 @app.route("/event", methods=["GET", "POST"])
 def event_page():
@@ -82,3 +99,16 @@ def event_page():
 @app.route('/complete')
 def complete_page():
     return render_template("complete.html")
+
+
+@app.route('/admin')
+@login_required
+def admin_page():
+   return render_template('admin.html')
+
+
+@app.route('/logout')
+def logout_page():
+    logout_user()
+    flash("Você encerrou sua sessão", category="info")
+    return redirect(url_for('login_page'))

@@ -155,5 +155,16 @@
         }
       ]
     }
+  ],
+  "users": [
+    {
+      "id": "019a42d2-46ca-782c-9956-ef6c5f56ea52",
+      "username": "admin",
+      "email": "admin@gmail.com",
+      "password": "$2a$12$u/ogLy0Ad2VNfe.MkDrpnOz02/sHQ.OMgIeIcD/fteNUih3A35Mfm",
+      "cpf": "12345678901",
+      "phone": "11987654321",
+      "state": "sp"
+    }
   ]
 }

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}
+  Login passa a bola
+{% endblock %}
+
+{% block csslink %} 
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}"/>
+{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between">
+        <form method="POST" class="d-flex flex-column w-25 justify-content-center mx-auto">
+            {{ form.hidden_tag()}}
+
+            <div class="text-center">
+                <h2 class="fw-bold">Bem vindo de volta!</h2>
+                <p class="fw-medium">Simplifique a organização dos seus jogos e torneios de futebol feminino com o nosso portal.</p>
+            </div>
+            <div class="form-group" >
+                {{ form.email.label() }}
+                {{ form.email(placeholder="Email") }}
+            </div>
+
+            <div class="form-group">
+                {{ form.password.label() }}
+                {{ form.password(placeholder="Senha") }}
+            </div>
+
+            <a href="#" class="text-decoration-none text-black text-end mb-2">Esqueceu a senha?</a>
+
+            {{ form.submit(class="btn-submit") }}
+        </form>
+        <img src="../static/assets/Sign Up form.png" alt="signup image" class="mx-5 my-4 " style="width: 37%;">
+    </div>
+{% endblock %}
