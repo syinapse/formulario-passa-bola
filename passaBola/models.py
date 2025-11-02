@@ -104,11 +104,12 @@ class Events():
 
 
 class User(UserMixin):
-    def __init__(self, username, password, email, cpf, phone, state):
+    def __init__(self, username, email, cpf, phone, state, password='senhaTemp'):
         self.id = uuid7str()
         self.cpf = cpf
         self.username = username
-        self.paswword = password
+        self.password = password
+        self.hashPassword = None
         self.email = email
         self.phone = phone
         self.state = state
@@ -119,27 +120,23 @@ class User(UserMixin):
     
     @password.setter
     def password(self, value):
-        self.hashPassword = bcrypt.generate_password_hash(value).decode()
+        self.hashPassword = bcrypt.generate_password_hash(value).decode('utf-8')
 
-    @classmethod
     def isValidPassword(self, attempedPassword):
         return bcrypt.check_password_hash(self.hashPassword, attempedPassword)
     
     @classmethod
-    def findUserByEmail(self, email):
+    def findUserByEmail(cls, email):
         all_users = User.readUsers()
         for user_data in all_users:
-            # user_id vem como string, o id no seu JSON é um número
             if user_data['email'] == email:
-                # Recria o objeto User com os dados do "banco"
-                # Importante: Não passe a senha aqui para não hashear de novo!
-                user = User(username=user_data['username'],
+                user = cls(username=user_data['username'],
                                 email=user_data['email'],
-                                password=user_data['password'],
                                 cpf=user_data['cpf'],
                                 phone=user_data['phone'],
                                 state=user_data['state'])
                 user.id = user_data['id'] # Garante que o ID seja o mesmo do banco
+                user.hashPassword = user_data['password'];
                 return user
         return None
     

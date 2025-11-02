@@ -15,7 +15,7 @@ def login_page():
     if loginform.validate_on_submit():
       attemptedUser = User.findUserByEmail(loginform.email.data)
 
-      if (attemptedUser and attemptedUser.isValidPassword(loginform.password.data)):
+      if (attemptedUser and attemptedUser.isValidPassword(attempedPassword=loginform.password.data)):
           login_user(attemptedUser)
           flash("Acesso concedido!", category="success")
           return redirect(url_for('admin_page'))
