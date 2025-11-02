@@ -3,7 +3,7 @@ const btnIndividual = document.getElementById("btn-individual");
 const btnTime = document.getElementById("btn-time");
 const formIndividual = document.getElementById("form-individual");
 const formTime = document.getElementById("form-time");
-const btns_submit = document.querySelectorAll(".btn-submit") 
+const btns_submit = document.querySelectorAll(".btn-submit") ;
 
 // Função para mostrar o formulário Individual
 btnIndividual.addEventListener("click", function () {

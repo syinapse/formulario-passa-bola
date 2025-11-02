@@ -3,6 +3,10 @@
   Login
 {% endblock %}
 
+{% block script %}
+<script src="{{ url_for('static', filename='login_script.js') }}"></script>
+{% endblock %}
+
 {% block content %}
     <div class="d-flex justify-content-between">
         <form method="POST" class="d-flex flex-column w-25 justify-content-center mx-auto">
@@ -19,10 +23,16 @@
 
             <div class="form-group">
                 {{ form.password.label() }}
-                {{ form.password(placeholder="Senha") }}
+                {{ form.password(placeholder="Senha", id="inputPassword") }}
             </div>
 
-            <a href="#" class="text-decoration-none text-black text-end mb-2">Esqueceu a senha?</a>
+            <div class="d-flex justify-content-between">
+                <div>
+                    <input type="checkbox" id="isPasswordVisible">
+                    <label for="seePassword">Mostrar senha</label>
+                </div>
+                <a href="#" class="text-decoration-none text-black text-end mb-2">Esqueceu a senha?</a>
+            </div>
 
             {{ form.submit(class="btn-submit") }}
         </form>
