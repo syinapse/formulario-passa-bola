@@ -1,20 +1,15 @@
-# Importa as classes e funções necessárias para criar formulários e validações.
 from flask_wtf import FlaskForm
 from flask import flash
 from wtforms import StringField, EmailField, SubmitField, TextAreaField, DateField, SelectField ,ValidationError
 from wtforms.validators import DataRequired, Email, Length
-from passaBola.models import Player, Teams, checkCPF
+from passaBola.models import Player, Teams
 from passaBola.brasilApi import getStatesAtTuple
 
-# Executa a função para obter a lista de estados que será usada nos formulários.
 states = getStatesAtTuple()
 
-# Define o formulário de inscrição para jogadoras individuais.
 class PlayerForm(FlaskForm):
-    # Carrega os dados existentes para validação de duplicidade.
     data = Player.readPlayers()
 
-    # Funções de validação customizadas (verificam se o dado já existe no "banco").
     def validate_email(self, email_to_check):
         for i in range(len(self.data)):
             if self.data[i]['email'] and self.data[i]['email'] == email_to_check.data:
@@ -30,17 +25,13 @@ class PlayerForm(FlaskForm):
             if self.data[i]['cpf'] and self.data[i]['cpf'] == cpf_to_check.data:
                 raise ValidationError("O CPF inserido já foi inscrito. Por favor insira outro.")
     
-     # Valida se a jogadora tem mais de 16 anos.
     def validate_birthday(self, birthday_to_check):
         from datetime import datetime
         currentDate = datetime.now().date()
-        # Checar também com os dados do CPF que foram retornados
-        # O Limite de idade vai depender de evento pra evento, então deve ser pego em uma base de dados o valor quando o usuário cria-lo
         age = int(((currentDate - birthday_to_check.data).days) / 365)
         if age < 16:
             raise ValidationError("Com a data de nascimento inserida, somente jogadoras com mais de 16 anos é permitida.")
     
-    # Definição dos campos do formulário com seus respectivos validadores.
     cpf = StringField(label="CPF: *", validators=[DataRequired("Informe o seu número de cpf"), Length(min=11, max=11)])
     birthday = DateField(label="Data de nascimento: *", validators=[DataRequired("Informe a sua data de nascimento")])
     full_name = StringField(label="Nome completo: *", validators=[DataRequired("O nome da jogadora deve conter no mínimo 10 caractéres"), Length(min=10, max=50)])
@@ -51,12 +42,9 @@ class PlayerForm(FlaskForm):
     submit = SubmitField(label="Enviar Inscrição", name="individual")
 
 
-# Define o formulário de inscrição para times.
 class TeamForm(FlaskForm):
-    # Carrega os dados existentes para validações.
     data = Teams.readTeams()
 
-    # Valida o campo de texto onde as jogadoras são inseridas (Nome - CPF).
     def validate_players(self, players_to_check = ""):
         if not players_to_check.data:
             raise ValidationError("O campo de jogadoras do clube está vazio! Informe ao menos Uma jogadora")
@@ -77,7 +65,6 @@ class TeamForm(FlaskForm):
             except:
                 flash("Algum campo em TIMES foi digitado incorretamente. Tente novamente", category="danger")
 
-    # Definição dos campos do formulário do time com seus validadores.
     cnpj = StringField(label="CNPJ (Opcional):", validators=[Length(min=0, max=14)])
     team_name = StringField(label="Nome do time: *", validators=[DataRequired("Insira o nome do time de no mínimo 3 caractéres"), Length(min=3, max=50)])
     president_name = StringField(label="Nome do presidente: * ", validators=[DataRequired("Insira o nome do presidente"), Length(min=5, max=50)])
