@@ -399,7 +399,7 @@ footer {
   background: #4b0082;
 }
 
-.alert {
+/* .alert {
   display: flex;
   justify-content: space-between;
   position: absolute;
@@ -431,7 +431,7 @@ footer {
 .alert button:hover {
   background-color: gainsboro;
   transform: scale(1.1);
-}
+} */
 
 .home-background {
   background-image: url("../static/assets/HomeBackground.jpg");

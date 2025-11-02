@@ -15,16 +15,18 @@ def login_page():
     if loginform.validate_on_submit():
       attemptedUser = User.findUserByEmail(loginform.email.data)
 
-      if (not (attemptedUser or attemptedUser.isValidPassword(loginform.password.data))):
-        flash("Email ou senha estão incorretos... Tente novamente.", category="danger")
-      login_user(attemptedUser)
-      flash("Acesso concedido!", category="success")
-      return redirect(url_for('admin_page'))
+      if (attemptedUser and attemptedUser.isValidPassword(loginform.password.data)):
+          login_user(attemptedUser)
+          flash("Acesso concedido!", category="success")
+          return redirect(url_for('admin_page'))
+      else:
+          flash("Email ou senha estão incorretos... Tente novamente.", category="danger")
       
     return render_template("login.html", form=loginform)
 
 # precisa obter o parametro como Id par pegar os dados como /event/id ou /event?id=id
-@app.route("/", methods=["GET"])
+@app.route("/")
+@app.route("/home")
 def home_page():
    return render_template('home.html')
 
