@@ -1,319 +1,250 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Copa Passe a Bola 2025</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='style.css')}}"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    />
-    <!-- <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script> -->
-  </head>
-  <body>
-    <!-- HEADER -->
-    <header>
-      <div class="logo-header">
-        <img src="../static/Assets/LogoPassaBola.png" alt="Logo Passe a Bola" />
-        <span>Passe a Bola</span>
-      </div>
-      <a href="#form-container" class="btn-cadastro">
-        <i class="fas fa-users"></i> Entrar
-      </a>
-    </header>
+{% extends 'base.html' %}
+{% block title %}
+  Evento
+{% endblock %}
 
-    <!-- Alerta de Campos invalidados -->
-    {% with messages = get_flashed_messages(with_categories=true) %} {% if
-    messages %} {% for category, msg in messages %}
-    <div class="box">
-      <div class="alert" data-category="{{ category }}">
-        {{ msg }}
-        <button class="close-btn">X</button>
-      </div>
+{% block csslink %} 
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}"/>
+{% endblock %}
+
+{% block content%}
+<div class="container">
+  <main>
+    <div class="share-icons">
+      <span>Compartilhe:</span>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
     </div>
-    {% endfor %} {% endif%} {% endwith %}
 
-    <!-- CONTEÚDO -->
-    <div class="container">
-      <main>
-        <div class="share-icons">
-          <span>Compartilhe:</span>
-          <a href="#"><i class="fab fa-linkedin"></i></a>
-          <a href="#"><i class="fab fa-instagram"></i></a>
+    <h1 class="Campeonato">COPA PASSE A BOLA 2025 - A VEZ DELAS!</h1>
+    <p class="subtitle">
+      A maior vitrine do futebol feminino amador está de volta!
+    </p>
+    <p>
+      A Copa Passe a Bola é mais do que um torneio: é uma celebração da
+      força, talento e paixão das mulheres no futebol. Em sua segunda
+      edição, queremos descobrir novos talentos, fortalecer a comunidade e
+      oferecer uma experiência única de competição, visibilidade e
+      oportunidade. Traga seu time ou inscreva-se individualmente e venha
+      fazer história!
+    </p>
+
+    <div class="event-details">
+      <span><i class="fas fa-map-marker-alt"></i> São Paulo / SP</span>
+      <span><i class="fas fa-calendar-alt"></i> 05/2025 - 07/2025</span>
+    </div>
+
+    <section class="regulation">
+      <h2>Regulamento e Informações Gerais</h2>
+
+      <ol>
+        <li>
+          <strong>Sobre o Campeonato</strong>
+          <p>
+            A Copa Passe a Bola 2025 é um torneio de Futebol de Campo (11
+            jogadoras) voltado para atletas amadoras acima de 16 anos. O
+            objetivo é promover integração, revelar talentos e criar um
+            ambiente seguro e profissional para a prática do esporte.
+          </p>
+        </li>
+        <li>
+          <strong>Formato da Competição</strong>
+          <ul>
+            <li>
+              Fase de Grupos: As equipes serão divididas em grupos e jogarão
+              em turno único. As melhores classificadas avançam para a fase
+              eliminatória.
+            </li>
+            <li>
+              Fase Eliminatória (mata-mata): Jogos únicos de quartas de
+              final, semifinal e final.
+            </li>
+            <li>
+              Local dos Jogos: Campos parceiros na cidade de São Paulo. Os
+              locais exatos serão divulgados após o encerramento das
+              inscrições.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>Categorias de Inscrição</strong>
+          <ul>
+            <li>
+              <b>Inscrição de Time:</b> Equipes já formadas com no mínimo 11
+              e no máximo 15 jogadoras, mais comissão técnica.
+            </li>
+            <li>
+              <b>Inscrição Individual:</b> Para jogadoras sem time. A
+              organização formará equipes chamadas “Equipes Passe a Bola”.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>Documentos e Requisitos Obrigatórios</strong>
+          <ul>
+            <li>Idade mínima: 18 anos até a data da inscrição.</li>
+            <li>Cópia digitalizada de documento de identificação.</li>
+            <li>
+              Atestado médico de aptidão para prática de atividade física,
+              emitido nos últimos 6 meses.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>Prazos e Taxas</strong>
+          <p>📅 Inscrições: 10/09/2025 a 20/10/2025.</p>
+          <p>
+            💰 Inscrição por Time: R$ 450,00 (cobre custos de arbitragem,
+            organização e premiação).
+          </p>
+          <p>💰 Inscrição Individual: R$ 35,00.</p>
+        </li>
+        <li>
+          <strong>Premiação</strong>
+          <ul>
+            <li>
+              Equipe Campeã: Troféu, medalhas e prêmio de R$ 3.000,00.
+            </li>
+            <li>Vice-Campeã: Troféu, medalhas e prêmio de R$ 1.500,00.</li>
+            <li>
+              Destaques Individuais: Artilheira, Melhor Goleira e Craque do
+              Campeonato.
+            </li>
+          </ul>
+        </li>
+      </ol>
+    </section>
+  </main>
+
+  <!-- FORMULÁRIO -->
+  <aside id="form-container">
+    <div class="form-wrapper">
+      <h2>Candidatar-se para o campeonato</h2>
+      <div class="tabs">
+        <button class="tab-button active" id="btn-individual" type="button">
+          1. Individual
+        </button>
+        <button class="tab-button" id="btn-time" type="button">
+          2. Time
+        </button>
+      </div>
+
+      <!-- Formulário Individual -->
+      <form method="POST" id="form-individual">
+        <!-- Importante para assegurar e receber o token CSF -->
+        {{ form.hidden_tag() }}
+
+        <!-- campo escondido que vai receber o valor do localStorage -->
+        <input type="hidden" name="form_type" value="individuals">
+        <div class="form-group">
+          {{ form.cpf.label() }} {{ form.cpf(placeholder="00000000000")
+          }}
+        </div>
+        <div class="form-group">
+          {{ form.full_name.label() }} {{ form.full_name(placeholder="Nome Completo") }}
+        </div>
+        <div class="form-group">
+          {{ form.birthday.label() }} {{ form.birthday() }}
+        </div>
+        <div class="form-group">
+          {{ form.email.label() }} {{
+          form.email(placeholder="email@exemplo.com") }}
         </div>
 
-        <h1 class="Campeonato">COPA PASSE A BOLA 2025 - A VEZ DELAS!</h1>
-        <p class="subtitle">
-          A maior vitrine do futebol feminino amador está de volta!
-        </p>
-        <p>
-          A Copa Passe a Bola é mais do que um torneio: é uma celebração da
-          força, talento e paixão das mulheres no futebol. Em sua segunda
-          edição, queremos descobrir novos talentos, fortalecer a comunidade e
-          oferecer uma experiência única de competição, visibilidade e
-          oportunidade. Traga seu time ou inscreva-se individualmente e venha
-          fazer história!
-        </p>
-
-        <div class="event-details">
-          <span><i class="fas fa-map-marker-alt"></i> São Paulo / SP</span>
-          <span><i class="fas fa-calendar-alt"></i> 05/2025 - 07/2025</span>
-        </div>
-
-        <section class="regulation">
-          <h2>Regulamento e Informações Gerais</h2>
-
-          <ol>
-            <li>
-              <strong>Sobre o Campeonato</strong>
-              <p>
-                A Copa Passe a Bola 2025 é um torneio de Futebol de Campo (11
-                jogadoras) voltado para atletas amadoras acima de 16 anos. O
-                objetivo é promover integração, revelar talentos e criar um
-                ambiente seguro e profissional para a prática do esporte.
-              </p>
-            </li>
-            <li>
-              <strong>Formato da Competição</strong>
-              <ul>
-                <li>
-                  Fase de Grupos: As equipes serão divididas em grupos e jogarão
-                  em turno único. As melhores classificadas avançam para a fase
-                  eliminatória.
-                </li>
-                <li>
-                  Fase Eliminatória (mata-mata): Jogos únicos de quartas de
-                  final, semifinal e final.
-                </li>
-                <li>
-                  Local dos Jogos: Campos parceiros na cidade de São Paulo. Os
-                  locais exatos serão divulgados após o encerramento das
-                  inscrições.
-                </li>
-              </ul>
-            </li>
-            <li>
-              <strong>Categorias de Inscrição</strong>
-              <ul>
-                <li>
-                  <b>Inscrição de Time:</b> Equipes já formadas com no mínimo 11
-                  e no máximo 15 jogadoras, mais comissão técnica.
-                </li>
-                <li>
-                  <b>Inscrição Individual:</b> Para jogadoras sem time. A
-                  organização formará equipes chamadas “Equipes Passe a Bola”.
-                </li>
-              </ul>
-            </li>
-            <li>
-              <strong>Documentos e Requisitos Obrigatórios</strong>
-              <ul>
-                <li>Idade mínima: 18 anos até a data da inscrição.</li>
-                <li>Cópia digitalizada de documento de identificação.</li>
-                <li>
-                  Atestado médico de aptidão para prática de atividade física,
-                  emitido nos últimos 6 meses.
-                </li>
-              </ul>
-            </li>
-            <li>
-              <strong>Prazos e Taxas</strong>
-              <p>📅 Inscrições: 10/09/2025 a 20/10/2025.</p>
-              <p>
-                💰 Inscrição por Time: R$ 450,00 (cobre custos de arbitragem,
-                organização e premiação).
-              </p>
-              <p>💰 Inscrição Individual: R$ 35,00.</p>
-            </li>
-            <li>
-              <strong>Premiação</strong>
-              <ul>
-                <li>
-                  Equipe Campeã: Troféu, medalhas e prêmio de R$ 3.000,00.
-                </li>
-                <li>Vice-Campeã: Troféu, medalhas e prêmio de R$ 1.500,00.</li>
-                <li>
-                  Destaques Individuais: Artilheira, Melhor Goleira e Craque do
-                  Campeonato.
-                </li>
-              </ul>
-            </li>
-          </ol>
-        </section>
-      </main>
-
-      <!-- FORMULÁRIO -->
-      <aside id="form-container">
-        <div class="form-wrapper">
-          <h2>Candidatar-se para o campeonato</h2>
-          <div class="tabs">
-            <button class="tab-button active" id="btn-individual" type="button">
-              1. Individual
-            </button>
-            <button class="tab-button" id="btn-time" type="button">
-              2. Time
-            </button>
+        <div class="form-group">
+          {{ form.phone.label() }}
+          <div class="phone-input-group">
+            <span class="country-code">
+              <img
+                src="../static/Assets/Brasil.png"
+                alt="Bandeira do Brasil"
+              />
+              +55
+            </span>
+            {{ form.phone(placeholder="(00) 00000-0000") }}
           </div>
-
-          <!-- Formulário Individual -->
-          <form method="POST" id="form-individual">
-            <!-- Importante para assegurar e receber o token CSF -->
-            {{ form.hidden_tag() }}
-
-            <!-- campo escondido que vai receber o valor do localStorage -->
-            <input type="hidden" name="form_type" value="individuals">
-            <div class="form-group">
-              {{ form.cpf.label() }} {{ form.cpf(placeholder="00000000000")
-              }}
-            </div>
-            <div class="form-group">
-              {{ form.full_name.label() }} {{ form.full_name(placeholder="Nome Completo") }}
-            </div>
-            <div class="form-group">
-              {{ form.birthday.label() }} {{ form.birthday() }}
-            </div>
-            <div class="form-group">
-              {{ form.email.label() }} {{
-              form.email(placeholder="email@exemplo.com") }}
-            </div>
-
-            <div class="form-group">
-              {{ form.phone.label() }}
-              <div class="phone-input-group">
-                <span class="country-code">
-                  <img
-                    src="../static/Assets/Brasil.png"
-                    alt="Bandeira do Brasil"
-                  />
-                  +55
-                </span>
-                {{ form.phone(placeholder="(00) 00000-0000") }}
-              </div>
-            </div>
-            <div class="form-group">
-              {{ form.state.label() }} {{ form.state() }}
-            </div>
-            <div class="form-group">
-              {{ form.instagram.label() }} {{
-              form.instagram(placeholder="@username")}}
-            </div>
-            <div class="form-group-checkbox">
-              <input type="checkbox" id="terms" required />
-              <label for="terms"
-                >Eu li e concordo com os
-                <a href="#">termos e condições</a>.</label
-              >
-            </div>
-
-            {{ form.submit(class="btn-submit") }}
-          </form>
-
-          <!-- FORMULARIO TIME -->
-          <form method="post" id="form-time" value="team" style="display: none">
-            <!-- Importante para assegurar e receber o token CSF -->
-            {{ teamForm.hidden_tag() }}
-
-            <!-- campo escondido que vai receber o valor do localStorage -->
-            <input type="hidden" name="form_type" value="teams">
-            <div class="form-group">
-              {{ teamForm.cnpj.label() }} {{
-              teamForm.cnpj(placeholder="00.000.000/0000-00")}}
-            </div>
-
-            <div class="form-group">
-              {{ teamForm.team_name.label() }} {{
-              teamForm.team_name(placeholder="Nome completo do time")}}
-            </div>
-
-            <div class="form-group">
-              {{ teamForm.president_name.label() }} {{
-              teamForm.president_name(placeholder="Nome completo") }}
-            </div>
-
-            <div class="form-group">
-              {{ teamForm.teamEmail.label() }} {{
-              teamForm.teamEmail(placeholder="email@exemplo.com") }}
-            </div>
-
-            <div class="form-group">
-              {{ teamForm.teamPhone.label() }}
-              <div class="phone-input-group">
-                <span class="country-code">
-                  <img
-                    src="../static/Assets/Brasil.png"
-                    alt="Bandeira do Brasil"
-                  />
-                  +55
-                </span>
-                {{ teamForm.teamPhone(placeholder="(00) 00000-0000") }}
-              </div>
-            </div>
-
-            <!-- Implementar com BrasilAPI-->
-            <div class="form-group">
-              {{ teamForm.teamState.label() }} {{ teamForm.teamState() }}
-            </div>
-
-            <div class="form-group">
-              {{ teamForm.players.label() }} {{
-              teamForm.players(placeholder="Ex: Maria Souza - 123.456.789-00")
-              }}
-            </div>
-
-            <div class="form-group-checkbox">
-              <input type="checkbox" id="terms-time" required />
-              <label for="terms-time"
-                >Eu li e concordo com os
-                <a href="#">termos e condições</a>.</label
-              >
-            </div>
-
-            {{ teamForm.submit(class="btn-submit") }}
-          </form>
         </div>
-      </aside>
-    </div>
-
-    <!-- FOOTER -->
-    <footer>
-      <div class="footer-content">
-        <img
-          src="../static/Assets/LogoPassaBola.png"
-          alt="Logo Passe a Bola Rodapé"
-          class="logo-footer"
-        />
-
-        <div class="socials">
-          <p>Redes Sociais</p>
-          <a href="#"><i class="fab fa-instagram"></i> @passeabola</a>
-          <a href="#"><i class="fab fa-youtube"></i> @passeabola</a>
-          <a href="#"><i class="fab fa-x-twitter"></i> @passeabola</a>
+        <div class="form-group">
+          {{ form.state.label() }} {{ form.state() }}
         </div>
-
-        <div class="contact">
-          <p>Contato</p>
-          <a href="mailto:contato@passeabola.com.br"
-            >contato@passeabola.com.br</a
+        <div class="form-group">
+          {{ form.instagram.label() }} {{
+          form.instagram(placeholder="@username")}}
+        </div>
+        <div class="form-group-checkbox">
+          <input type="checkbox" id="terms" required />
+          <label for="terms"
+            >Eu li e concordo com os
+            <a href="#">termos e condições</a>.</label
           >
-          <button class="btn-contact" type="button">FALE CONOSCO</button>
         </div>
-      </div>
 
-      <div class="copyright">
-        © Copyright 2025, Passe a Bola. Todos os direitos reservados.
-      </div>
-    </footer>
+        {{ form.submit(class="btn-submit") }}
+      </form>
 
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-  </body>
-</html>
+      <!-- FORMULARIO TIME -->
+      <form method="post" id="form-time" value="team" style="display: none">
+        <!-- Importante para assegurar e receber o token CSF -->
+        {{ teamForm.hidden_tag() }}
+
+        <!-- campo escondido que vai receber o valor do localStorage -->
+        <input type="hidden" name="form_type" value="teams">
+        <div class="form-group">
+          {{ teamForm.cnpj.label() }} {{
+          teamForm.cnpj(placeholder="00.000.000/0000-00")}}
+        </div>
+
+        <div class="form-group">
+          {{ teamForm.team_name.label() }} {{
+          teamForm.team_name(placeholder="Nome completo do time")}}
+        </div>
+
+        <div class="form-group">
+          {{ teamForm.president_name.label() }} {{
+          teamForm.president_name(placeholder="Nome completo") }}
+        </div>
+
+        <div class="form-group">
+          {{ teamForm.teamEmail.label() }} {{
+          teamForm.teamEmail(placeholder="email@exemplo.com") }}
+        </div>
+
+        <div class="form-group">
+          {{ teamForm.teamPhone.label() }}
+          <div class="phone-input-group">
+            <span class="country-code">
+              <img
+                src="../static/Assets/Brasil.png"
+                alt="Bandeira do Brasil"
+              />
+              +55
+            </span>
+            {{ teamForm.teamPhone(placeholder="(00) 00000-0000") }}
+          </div>
+        </div>
+
+        <!-- Implementar com BrasilAPI-->
+        <div class="form-group">
+          {{ teamForm.teamState.label() }} {{ teamForm.teamState() }}
+        </div>
+
+        <div class="form-group">
+          {{ teamForm.players.label() }} {{
+          teamForm.players(placeholder="Ex: Maria Souza - 123.456.789-00")
+          }}
+        </div>
+
+        <div class="form-group-checkbox">
+          <input type="checkbox" id="terms-time" required />
+          <label for="terms-time"
+            >Eu li e concordo com os
+            <a href="#">termos e condições</a>.</label
+          >
+        </div>
+
+        {{ teamForm.submit(class="btn-submit") }}
+      </form>
+    </div>
+  </aside>
+</div>
+{% endblock %}
