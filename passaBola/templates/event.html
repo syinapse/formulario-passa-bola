@@ -1,7 +1,6 @@
-{% extends 'base.html' %} {% block title %} Evento {% endblock %} {% block
-csslink %}
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}" />
-{% endblock %} {% block content%}
+{% extends 'base.html' %} {% block title %} Evento {% endblock %} 
+
+{% block content%}
 <div class="container">
   <main>
     <div class="share-icons">
@@ -128,8 +127,7 @@ csslink %}
           {{ form.cpf.label() }} {{ form.cpf(placeholder="00000000000") }}
         </div>
         <div class="form-group">
-          {{ form.full_name.label() }} {{ form.full_name(placeholder="Nome
-          Completo") }}
+          {{ form.full_name.label() }} {{ form.full_name(placeholder="Nome Completo") }}
         </div>
         <div class="form-group">
           {{ form.birthday.label() }} {{ form.birthday() }}

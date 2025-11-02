@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+<div class="home-background"></div>
+<section class="d-flex flex-column justify-content-center align-items-center vh-100">
+    <article class="d-flex flex-column gap-2 text-center w-50">
+        <h1 class="fw-bold fs-1">Um clique para Criar seu Evento</h1>
+        <p class="fw-medium fs-4">Participe da evolução do futebol feminino: cadastre torneios, campeonatos e projetos em segundos — tudo em um só lugar.</p>
+    </article>
+    <article class="d-flex gap-lg-5 align-self-center">
+        <a href="{{ url_for('login_page') }}" class="btn-home-secondary">Acesse o Portal</a>
+        <a href="#" class="btn-home-primary">
+            Explorar Eventos
+            <i class="fa-solid fa-arrow-right"></i>
+        </a>
+    </article>
+</section>
+{% endblock %}

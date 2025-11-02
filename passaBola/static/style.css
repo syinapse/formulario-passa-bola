@@ -4,6 +4,10 @@
   --azul-escuro: #1c1b29;
   --roxo-principal: #463d82;
   --rosa-destaque: #e6437f;
+  --pb-primary: #B868E3;
+  --pb-primary-hover: #823ea7;
+  --pb-secondary: #4E4555;
+  --pb-secondary-hover: #332b3a;
   --cinza-fundo: #f9f0ff;
   --cinza-texto: #555555;
   --branco: #ffffff;
@@ -62,6 +66,7 @@ header {
 .logo-header {
   display: flex;
   align-items: center;
+  text-decoration: none;
   gap: 0.5rem;
   font-weight: 700;
   color: var(--branco);
@@ -300,7 +305,6 @@ main h1 {
 
 footer {
   background-color: var(--azul-escuro);
-  margin-top: 3rem;
   padding: 2rem;
   color: var(--branco);
 }
@@ -309,7 +313,7 @@ footer {
   justify-content: space-around;
   align-items: flex-start;
   max-width: 1000px;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   padding-bottom: 2rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   gap: 2rem;
@@ -427,4 +431,51 @@ footer {
 .alert button:hover {
   background-color: gainsboro;
   transform: scale(1.1);
+}
+
+.home-background {
+  background-image: url("../static/assets/HomeBackground.jpg");
+  background-repeat: round;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  z-index: -1;
+}
+
+.btn-home-primary {
+  font-weight: 600;
+  font-size: 18px;
+  text-decoration: none;
+  background-color: var(--pb-primary);
+  text-align: center;
+  align-content: center;
+  color: white;
+  padding: .7rem 1rem;
+  border-radius: 8px;
+  transition: .5s;
+}
+
+.btn-home-primary i {
+  rotate: calc(-45deg);
+}
+
+.btn-home-primary:hover {
+  background-color: var(--pb-primary-hover);
+}
+
+.btn-home-secondary {
+  font-weight: 600;
+  font-size: 18px;
+  text-decoration: none;
+  text-align: center;
+  align-content: center;
+  background-color: var(--pb-secondary);
+  color: white;
+  padding: .7rem 1rem;
+  border-radius: 8px;
+  transition: .5s;
+}
+
+.btn-home-secondary:hover {
+  background-color: var(--pb-secondary-hover);
 }

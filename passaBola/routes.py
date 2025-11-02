@@ -24,7 +24,10 @@ def login_page():
     return render_template("login.html", form=loginform)
 
 # precisa obter o parametro como Id par pegar os dados como /event/id ou /event?id=id
-@app.route("/", methods=["GET", "POST"])
+@app.route("/", methods=["GET"])
+def home_page():
+   return render_template('home.html')
+
 @app.route("/event", methods=["GET", "POST"])
 def event_page():
      # Instancia os dois formulários que serão usados na página.
