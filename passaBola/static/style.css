@@ -37,6 +37,39 @@ body {
   color: #fff !important;
 }
 
+.bg-pb-secondary {
+  background-color: var(--background-secondary) !important;
+  color: var(--pb-secondary);
+}
+
+.card-admin-info {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  transition: .3s;
+  width: 21.125rem;
+  height: 7.5625rem;
+}
+
+.card-admin-info i {
+  font-size: 4rem;
+}
+
+.card-admin-info p {
+  align-self: center;
+  font-weight: 700;
+  text-align: right;
+  margin-top: 8px;
+}
+
+.card-admin-info:hover {
+  scale: calc(1.2);
+}
+
 /* Layout */
 
 .container {
@@ -519,6 +552,8 @@ footer {
 
 .admin-content {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   width: 80%;
 }
