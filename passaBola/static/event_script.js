@@ -9,7 +9,7 @@ const btns_submit = document.querySelectorAll(".btn-submit") ;
 btnIndividual.addEventListener("click", function () {
   formIndividual.style.display = "block";
   formTime.style.display = "none";
-
+  
   btnIndividual.classList.add("active");
   btnTime.classList.remove("active");
 });
@@ -18,7 +18,7 @@ btnIndividual.addEventListener("click", function () {
 btnTime.addEventListener("click", function () {
   formIndividual.style.display = "none";
   formTime.style.display = "block";
-
+  
   btnTime.classList.add("active");
   btnIndividual.classList.remove("active");
 });
@@ -33,7 +33,7 @@ function styleAlert(element) {
 const alerts = document.querySelectorAll(".alert");
 alerts.forEach((alert) => {
   styleAlert(alert);
-
+  
   const close_btn = alert.querySelector(".close-btn");
   if (close_btn) {
     close_btn.addEventListener("click", () => {
@@ -46,7 +46,7 @@ btns_submit.forEach((btn) => {
   btn.addEventListener('click', () => {
     localStorage.setItem("forms", btn.getAttribute('name'))
   })
-
+  
   // também joga direto no hidden input antes de enviar
- // document.getElementsByName("form_type").value = btn.getAttribute("name");
+  // document.getElementsByName("form_type").value = btn.getAttribute("name");
 })

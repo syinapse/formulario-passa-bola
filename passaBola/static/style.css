@@ -15,10 +15,6 @@
   --preto: #000000;
   --cinza-borda: #dddddd;
   --roxo-claro: #f5efff;
-  --danger: #e47777;
-  --success: #71dd6c;
-  --warning: #dbd471;
-  --info: #72b0c9;
 }
 
 /* Reset */
@@ -33,6 +29,12 @@ body {
   background-color: var(--cinza-fundo);
   color: var(--preto);
   line-height: 1.6;
+}
+
+/* Styles */
+.bg-pb-primary {
+  background-color: var(--pb-primary) !important;
+  color: #fff !important;
 }
 
 /* Layout */
@@ -510,14 +512,9 @@ footer {
   transition: .3s;
 }
 
-.sidebar a:hover, button:hover {
-  background-color: var(--pb-primary);
-  color: white;
-}
-
-.sidebar a:hover {
-  background-color: var(--pb-primary);
-  color: white;
+.sidebar a:hover, .sidebar button:hover {
+  background-color: #d5cadd;
+  color: black;
 }
 
 .admin-content {
