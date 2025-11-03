@@ -100,7 +100,22 @@ class Teams():
 
 # Classe placeholder para futuros desenvolvimentos de Eventos.
 class Events():
-    pass
+    def __init__(self, title, address, state, begin_date, end_date, event_description, reward_description, min_age, max_age, max_uni_sub, max_team_sub, cost_uni_sub = 0, cost_team_sub = 0, linkedin = "", instagram = "", whats = "", other = ""):
+        self.title = title
+        self.address = address
+        self.state = state
+        self.eventDates = {"start": begin_date, "end": end_date}
+        self.event_description = event_description
+        self.reward_description = reward_description
+        self.eventAge = {"min": min_age, "max": max_age}
+        self.totalPlayers = max_uni_sub
+        self.totalTeams = max_team_sub
+        self.eventCostPlayer = cost_uni_sub
+        self.eventCostTeam = cost_team_sub
+        self.linkedin = linkedin
+        self.instagram = instagram
+        self.whatsapp = whats
+        self.other = other
 
 
 class User(UserMixin):
