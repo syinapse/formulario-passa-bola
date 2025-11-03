@@ -6,11 +6,6 @@ from passaBola import bcrypt, loginManager
 
 database_path = Path("./passaBola/database/database.json")
 
-def readDatabase():
-    with open(database_path, "r") as db:
-        data = load(db)
-    return data
-
 @loginManager.user_loader
 def load_user(user_id):
     return User.findUserById(user_id)
@@ -53,8 +48,8 @@ class Player():
             data = load(pl)
         return data["players"]
     
-    def witeNewPlayer(self):
-        db = readDatabase()
+    def writeNewPlayer(self):
+        db = Database.readDatabase()
         newPlayer = self.__dict__ 
         newPlayer['birthday'] = newPlayer['birthday'].strftime("%d-%m-%Y")
         db['players'].append(newPlayer)
@@ -79,7 +74,7 @@ class Teams():
         return data['teams']
     
     def writeTeams(self):
-        db = readDatabase()
+        db = Database.readDatabase()
 
         newTeam = self.__dict__
         
@@ -182,12 +177,11 @@ class User(UserMixin):
             data = load(f)
         return data['users']
 
-    @classmethod
     def writeNewUser(self):
         """
         Write the current new user created on JSON database
         """
-        data = readDatabase()
+        data = Database.readDatabase()
         newUser = { "id": self.id,
                     "username": self.username,
                     "email": self.email,
@@ -201,30 +195,46 @@ class User(UserMixin):
             dump(data, f)
 
 
-# class Database():
-#     @staticmethod
-#     def readUsers(key):
-#         """
-#         Read all users registered in the system
-#         """
-#         with open(database_path, "r") as f:
-#             data = load(f)
-#         return data[key]
+class Database():
+    @staticmethod
+    def readDatabase():
+        with open(database_path, "r") as db:
+            data = load(db)
+        return data
 
-#     @staticmethod
-#     def writeNewUser(self):
-#         """
-#         Write the current new user created on JSON database
-#         """
-#         data = readDatabase()
-#         newUser = { "id": self.id,
-#                     "username": self.username,
-#                     "email": self.email,
-#                     "password": self.hashPassword,
-#                     "cpf": self.cpf,
-#                     "phone": self.phone,
-#                     "state": self.state  
-#                     }
-#         data['users'].append(newUser)
-#         with open(database_path, "w") as f:
-#             dump(data, f)
+    @staticmethod
+    def readData(key:str):
+        """
+        Read all data registered in the system from a key
+        """
+        try:
+            with open(database_path, "r") as f:
+                data = load(f)
+            return data[key]
+        except KeyError:
+            raise KeyError("A chave informada é inválida.")
+
+    @staticmethod
+    def writeNewData(key:str, objectToAdd):
+        """
+        Write the current new data created on JSON database from a key
+        """
+        try:
+            data = Database.Database.readDatabase()   
+            newData = objectToAdd.__dict__
+
+            if (key == "teams"):
+                if newData['players']:
+                    for i in range(len(newData["players"])):
+                        newData['players'][i] = newData['players'][i].__dict__
+
+            if (key == "players"):
+                newData['birthday'] = newData['birthday'].strftime("%d-%m-%Y")
+
+            data[key].append(newData)
+            with open(database_path, "w") as f:
+                dump(data, f)
+        except KeyError:
+            raise KeyError("A chave informada é inválida.")
+        except Exception as e:
+            raise Exception(f"Um erro inesperado aconteceu.\n{e}")

@@ -52,7 +52,7 @@ def event_page():
                               phone=form.phone.data,
                               instagram=form.instagram.data)
           # Salva a nova jogadora no "banco de dados" JSON.
-          newPlayer.witeNewPlayer()
+          newPlayer.writeNewPlayer()
           # Redireciona para a página de conclusão.
           return redirect(url_for("complete_page"))
       
