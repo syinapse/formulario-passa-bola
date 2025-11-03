@@ -107,9 +107,21 @@ def complete_page():
 
 
 @app.route('/admin')
+@app.route('/admin/home')
 @login_required
 def admin_page():
-   return render_template('admin.html')
+   return render_template('adminPages/home.html')
+
+@app.route('/admin/new-event')
+@login_required
+def admin_newEvent_page():
+   return render_template('adminPages/writeEvent.html')
+
+@app.route('/admin/events/<uuid:id>')
+@login_required
+def admin_myEvents_page(id):
+   attemptedUser = User.findUserById(id)
+   return render_template('adminPages/myEvents.html', user=attemptedUser)
 
 
 @app.route('/logout')

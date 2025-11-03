@@ -34,9 +34,9 @@
             {{ current_user.username }}
           </p>
           <ul class="dropdown-menu ">
-            <li><a class="dropdown-item" href="#">
+            <li><a class="dropdown-item" href="{{ url_for('admin_page') }}">
               <i class="fa-solid fa-user"></i>
-              Minha Conta
+              Meu portal
             </a></li>
             <li><a class="dropdown-item" href="{{ url_for('logout_page') }}">
               <i class="fa-solid fa-right-from-bracket"></i>
@@ -58,7 +58,7 @@
         {{ msg }}
         <button
           type="button"
-          class="btn-close"
+          class="btn-close btn-danger"
           data-bs-dismiss="alert"
           aria-label="Close"
         >

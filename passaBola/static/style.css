@@ -9,6 +9,7 @@
   --pb-secondary: #4E4555;
   --pb-secondary-hover: #332b3a;
   --cinza-fundo: #f9f0ff;
+  --background-secondary: #EDE5F3;
   --cinza-texto: #555555;
   --branco: #ffffff;
   --preto: #000000;
@@ -478,4 +479,49 @@ footer {
 
 .btn-home-secondary:hover {
   background-color: var(--pb-secondary-hover);
+}
+
+.sidebar {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding-top: 4rem;
+  flex-direction: column;
+  height: 100vh;
+  border-radius: 0px 20px 20px 0px;
+  background-color: var(--background-secondary);
+}
+
+.sidebar a, .sidebar button {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  width: 85%;
+  /* background-color: #ded5e6; */
+  background-color: transparent;
+  text-decoration: none;
+  padding: .5rem 1rem;
+  font-size: 1.375rem;
+  border: 0;
+  color: black;
+  text-align: left;
+  font-weight: 600;
+  border-radius: 0.625rem;
+  transition: .3s;
+}
+
+.sidebar a:hover, button:hover {
+  background-color: var(--pb-primary);
+  color: white;
+}
+
+.sidebar a:hover {
+  background-color: var(--pb-primary);
+  color: white;
+}
+
+.admin-content {
+  display: flex;
+  justify-content: center;
+  width: 80%;
 }

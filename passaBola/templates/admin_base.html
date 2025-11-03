@@ -1,0 +1,47 @@
+{% extends 'base.html' %} {% block title %} Portal {% endblock %} {% block
+content %}
+<section class="d-flex vh-100">
+  <aside class="sidebar">
+    <a href="{{ url_for('admin_page') }}">
+      <i class="fa-solid fa-house"></i>
+      Home
+    </a>
+    <a href="{{ url_for('admin_newEvent_page') }}">
+      <i class="fa-solid fa-file-circle-plus"></i>
+      Começar Evento
+    </a>
+    <a href="{{ url_for('admin_myEvents_page', id=current_user.get_id()) }}">
+      <i class="fa-solid fa-ticket"></i>
+      Ver Eventos
+    </a>
+    <hr>
+    <button data-bs-toggle="modal" data-bs-target="#logoutModal">
+      <i class="fa-solid fa-arrow-right-from-bracket"></i>
+      Sair da Conta
+    </button>
+  </aside>
+
+  <section class="admin-content">
+    {% block admincontent %}
+    {% endblock %}
+  </section>
+
+  <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Encerrar Sessão</h1>
+        <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Você realmente deseja encerrar a sua sessão de administador?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+        <a type="button" class="btn btn-primary" href="{{ url_for('logout_page') }}">Sim</a>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+{% endblock%}
