@@ -2,8 +2,8 @@
 # save this as app.py
 from passaBola import app,cpf_api_key
 from flask import render_template, flash, redirect, url_for, request
-from passaBola.forms import PlayerForm, TeamForm, LoginForm
-from passaBola.models import Player, Teams, User
+from passaBola.forms import PlayerForm, TeamForm, LoginForm, EventForm
+from passaBola.models import Player, Teams, User, Events
 from passaBola.brasilApi import getBrazilStates
 from flask_login import login_user, logout_user, login_required
 
@@ -115,7 +115,20 @@ def admin_page():
 @app.route('/admin/new-event')
 @login_required
 def admin_newEvent_page():
-   return render_template('adminPages/writeEvent.html')
+    eventForm = EventForm()
+    
+    if eventForm.validate_on_submit():
+      tryParse = [eventForm.min_age.data, eventForm.max_age.data, eventForm.max_total_team.data, eventForm.max_total_uni.data]
+      for field in tryParse:      
+        if not field.isnumeric() and not field:
+          flash(f'Esse campo deve ser do tipo numérico', category='warning')
+          return render_template('adminPages/writeEvent.html', form=eventForm)
+      
+
+
+    
+
+    return render_template('adminPages/writeEvent.html', form=eventForm)
 
 @app.route('/admin/events/<uuid:id>')
 @login_required

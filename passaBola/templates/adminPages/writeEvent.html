@@ -1,5 +1,117 @@
 {% extends 'admin_base.html' %}
 
 {% block admincontent %}
-<h1>Estou em Escrever eventos</h1>
+<section class="container-lg ">
+    <div class="d-flex justify-content-between align-items-center">
+        <h1 class="align-self-baseline my-4 fs-2" id="draft_title">Meu Evento #1</h1>
+        <button class="btn btn-outline-dark fw-semibold" style="height: fit-content;">Preencher automático</button>
+    </div>
+    <form class="row needs-validation" novalidate>
+        <div class="row">
+            <div class="col">
+                <div class="align-input-event">
+                    {{ form.title.label(class="form-label") }}
+                    {{ form.title(placeholder="Meu novo evento", class="form-control") }}
+                </div>
+                
+                <div class="align-input-event">
+                    {{ form.event_date_start.label(class="form-label") }}
+                    {{ form.event_date_start(class="form-control") }}
+                </div>
+            </div>
+            <div class="col">
+                <div class="align-input-event">
+                    {{ form.address.label(class="form-label") }}
+                    {{ form.address(placeholder="Rua Teste 123", class="form-control") }}
+                </div>
+                <div class="align-input-event">
+                    {{ form.event_date_end.label(class="form-label") }}
+                    {{ form.event_date_end(class="form-control") }}
+                </div>
+            </div>
+            <div class="col">
+                <div class="align-input-event">
+                    {{ form.state.label(class="form-label") }}
+                    {{ form.state(class="form-select") }}
+                </div>
+                <div class="align-input-event">
+                    {{ form.whatsapp_link.label(class="form-label") }}
+                    {{ form.whatsapp_link(class="form-control", placeholder="(11) 98765-4321") }}
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <div class="align-input-event">
+                    {{ form.event_description.label(class="form-label") }}
+                    {{ form.event_description(class="form-control", placeholder="Escreva aqui...", style="height: 200px; field-sizing: content;") }}
+                </div>
+            </div>
+            <div class="col">
+                <div class="align-input-event">
+                    {{ form.event_reward.label(class="form-label") }}
+                    {{ form.event_reward(class="form-control", placeholder="Escreva aqui...", style="height: 200px; field-sizing: content;") }}
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <div class="align-input-event">
+                    {{ form.min_age.label(class="form-label") }}
+                    {{ form.min_age(class="form-control", placeholder="Escreva aqui...") }}
+                </div>
+                <div class="align-input-event">
+                    {{ form.max_age.label(class="form-label") }}
+                    {{ form.max_age(class="form-control", placeholder="Escreva aqui...") }}
+                </div>
+            </div>
+            <div class="col">
+                <div class="align-input-event">
+                    {{ form.max_total_uni.label(class="form-label") }}
+                    {{ form.max_total_uni(class="form-control", placeholder="00") }}
+                </div>
+                <div class="align-input-event">
+                    {{ form.max_total_team.label(class="form-label") }}
+                    {{ form.max_total_team(class="form-control", placeholder="00") }}
+                </div>
+            </div>
+            <div class="col">
+                <div class="align-input-event">
+                    {{ form.cost_uni.label(class="form-label") }}
+                    {{ form.cost_uni(class="form-control", placeholder="R$ 00,00") }}
+                </div>
+                <div class="align-input-event">
+                    {{ form.cost_team.label(class="form-label") }}
+                    {{ form.cost_team(class="form-control", placeholder="R$ 00,00") }}
+                </div>
+            </div>
+            <div class="col">
+                <div class="align-input-event">
+                    {{ form.linkedin_link.label(class="form-label") }}
+                    {{ form.linkedin_link(class="form-control", placeholder="@perfil") }}
+                </div>
+                <div class="align-input-event">
+                    {{ form.instagram_link.label(class="form-label") }}
+                    {{ form.instagram_link(class="form-control", placeholder="@perfil") }}
+                </div>
+            </div>
+            <div class="col">
+                <div class="align-input-event">
+                    {{ form.other_link.label(class="form-label") }}
+                    {{ form.other_link(class="form-control", placeholder="@perfil") }}
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2 text-end">
+            <div class="col">
+                <button class="btn btn-pb-secondary size-btn-event mx-4">Limpar</button>
+                {{ form.submit(class="btn btn-pb-primary size-btn-event")}}
+            </div>
+        </div>
+    </form>
+</section>
+
+
 {% endblock %}

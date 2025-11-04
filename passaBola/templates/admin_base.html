@@ -32,7 +32,7 @@ content %}
     </button>
   </aside>
 
-  <section class="admin-content">
+  <section style="display: flex; flex-direction: column; width: 80%">
     {% block admincontent %} {% endblock %}
   </section>
 
@@ -62,14 +62,14 @@ content %}
         <div class="modal-footer">
           <button
             type="button"
-            class="btn btn-secondary"
+            class="btn btn-pb-secondary"
             data-bs-dismiss="modal"
           >
             Não
           </button>
           <a
             type="button"
-            class="btn btn-primary"
+            class="btn btn-pb-primary"
             href="{{ url_for('logout_page') }}"
             >Sim</a
           >

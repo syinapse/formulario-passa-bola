@@ -1,19 +1,21 @@
 {% extends 'admin_base.html' %}
 
 {% block admincontent %}
-<img src="../../static/assets/WelcomeAdmin.png" class="w-75 h-50">
-<section class="d-flex gap-4 mt-5">
-    <article class="card-admin-info bg-pb-secondary shadow-lg">
-        <i class="fa-solid fa-ticket"></i>
-        <p class="w-75 fs-5">20 Eventos foram cadastrados</p>
-    </article>
-    <article class="card-admin-info bg-pb-secondary shadow-lg">
-        <i class="fa-solid fa-calendar-days"></i>
-        <p class="w-75 fs-5">5 dias para o próximo evento</p>
-    </article>
-    <article class="card-admin-info bg-pb-secondary shadow-lg">
-        <i class="fa-solid fa-users"></i>
-        <p class="fs-5">45 pessoas inscritas no total</p>
-    </article>
-</section>
+<div class="admin-content">
+    <img src="../../static/assets/WelcomeAdmin.png" class="w-75 h-50">
+    <section class="d-flex gap-4 mt-5">
+        <article class="card-admin-info bg-pb-secondary shadow-lg">
+            <i class="fa-solid fa-ticket"></i>
+            <p class="w-75 fs-5">20 Eventos foram cadastrados</p>
+        </article>
+        <article class="card-admin-info bg-pb-secondary shadow-lg">
+            <i class="fa-solid fa-calendar-days"></i>
+            <p class="w-75 fs-5">5 dias para o próximo evento</p>
+        </article>
+        <article class="card-admin-info bg-pb-secondary shadow-lg">
+            <i class="fa-solid fa-users"></i>
+            <p class="fs-5">45 pessoas inscritas no total</p>
+        </article>
+    </section>
+</div>
 {% endblock %}

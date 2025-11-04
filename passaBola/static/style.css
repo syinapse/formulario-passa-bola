@@ -42,6 +42,33 @@ body {
   color: var(--pb-secondary);
 }
 
+.btn-pb-primary {
+  background-color: var(--pb-primary) !important;
+  color: white !important;
+  font-weight: 600;
+}
+
+.btn-pb-primary:hover {
+  background-color: var(--pb-primary-hover) !important;
+  color: white !important;
+}
+.btn-pb-secondary {
+  background-color: var(--pb-secondary) !important;
+  color: white !important;
+  font-weight: 600;
+}
+
+.btn-pb-secondary:hover {
+  background-color: var(--pb-secondary-hover) !important;
+  color: white !important;
+}
+
+.size-btn-event {
+  width: 14.6875rem;
+  height: 3.125rem;
+  font-size: 18px;
+}
+
 .card-admin-info {
   display: flex;
   gap: 10px;
@@ -556,4 +583,21 @@ footer {
   justify-content: center;
   align-items: center;
   width: 80%;
+}
+
+.align-input-event {
+  margin-bottom: 1rem;
+}
+
+.align-input-event label {
+  font-size: 20px;
+}
+
+.align-input-event input, .align-input-event select {
+  font-size: 16px;
+  height: 3.125rem;
+  border-radius: 0.625rem;
+}
+.align-input-event select:hover, .align-input-event input[type="date"] {
+  cursor: pointer;
 }
