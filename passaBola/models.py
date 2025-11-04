@@ -96,6 +96,7 @@ class Teams():
 # Classe placeholder para futuros desenvolvimentos de Eventos.
 class Events():
     def __init__(self, title, address, state, begin_date, end_date, event_description, reward_description, min_age, max_age, max_uni_sub, max_team_sub, cost_uni_sub = 0, cost_team_sub = 0, linkedin = "", instagram = "", whats = "", other = ""):
+        self.id = uuid7str()
         self.title = title
         self.address = address
         self.state = state
@@ -112,9 +113,53 @@ class Events():
         self.whatsapp = whats
         self.other = other
 
+    @classmethod
+    def findEventById(cls, event_id):
+        try:
+            all_events: dict = Database.readDatabase(Database.db_profile)
+            if (event_id not in all_events.keys()):
+                return None
+            foundedEvent = all_events[event_id]
+            event = cls(
+                title=foundedEvent['title'],
+                address=foundedEvent['address'],
+                state=foundedEvent['state'],
+                begin_date=foundedEvent['begin-date'],
+                end_date=foundedEvent['end-date'],
+                event_description=['event_description'],
+                reward_description=foundedEvent['reward_description'],
+                min_age=foundedEvent['min_age'],
+                max_age=foundedEvent['max_age'],
+                max_uni_sub=foundedEvent['max_uni_sub'],
+                max_team_sub=foundedEvent['max_team_sub'],
+                cost_team_sub=foundedEvent['cost_team_sub'],
+                cost_uni_sub=foundedEvent['cost_uni_sub'],
+                linkedin=foundedEvent['linkedin'],
+                instagram=foundedEvent['instagram'],
+                whats=foundedEvent['whats']
+            )
+            event.id = event_id
+            return event
+        except Exception:
+            raise
+
+        return None
+    
+    def writeNewEvent(self):
+        """
+        Write the current new user created on JSON database
+        """
+        data:dict = Database.readDatabase(Database.db_events)
+        newEvent = self.__dict__
+        del newEvent['id']
+
+        data[self.id].append(newEvent)
+        with open(Database.db_events, "w") as f:
+            dump(data, f)
+
 
 class User(UserMixin):
-    def __init__(self, username, email, cpf, phone, state, password='senhaTemp'):
+    def __init__(self, username, email, cpf, phone, state, events = [], password:str = 'senhaTemp'):
         self.id = uuid7str()
         self.cpf = cpf
         self.username = username
@@ -123,6 +168,7 @@ class User(UserMixin):
         self.email = email
         self.phone = phone
         self.state = state
+        self.events = events
 
     @property
     def password(self):
@@ -137,73 +183,65 @@ class User(UserMixin):
     
     @classmethod
     def findUserByEmail(cls, email):
-        all_users = User.readUsers()
-        for user_data in all_users:
-            if user_data['email'] == email:
-                user = cls(username=user_data['username'],
-                                email=user_data['email'],
-                                cpf=user_data['cpf'],
-                                phone=user_data['phone'],
-                                state=user_data['state'])
-                user.id = user_data['id'] # Garante que o ID seja o mesmo do banco
-                user.hashPassword = user_data['password'];
-                return user
+        try:
+            all_users:dict = Database.readDatabase(Database.db_profile)
+            for uuid, data in all_users.items():
+                if not data['email'] == email:
+                    return None
+                return cls.findUserById(uuid)
+        except:
+            raise
         return None
     
     @classmethod
-    def findUserById(self, userid):
-        all_users = User.readUsers()
-        for user_data in all_users:
-            # user_id vem como string, o id no seu JSON é um número
-            if user_data['id'] == userid:
-                # Recria o objeto User com os dados do "banco"
-                # Importante: Não passe a senha aqui para não hashear de novo!
-                user = User(username=user_data['username'],
-                                email=user_data['email'],
-                                password=user_data['password'],
-                                cpf=user_data['cpf'],
-                                phone=user_data['phone'],
-                                state=user_data['state'])
-                user.id = user_data['id'] # Garante que o ID seja o mesmo do banco
-                return user
+    def findUserById(cls, userid):
+        try:
+            all_users: dict = Database.readDatabase(Database.db_profile)
+            if (userid not in all_users.keys()):
+                return None
+            foundedUser = all_users[userid]
+            user = cls(
+                foundedUser['username'],
+                foundedUser['email'],
+                foundedUser['cpf'],
+                foundedUser['phone'],
+                foundedUser['state'],
+                foundedUser['events'])
+            user.id = userid
+            user.hashPassword = foundedUser['password'];
+            return user
+        except Exception:
+            raise
+
         return None
     
-    @staticmethod
-    def readUsers():
-        """
-        Read all users registered in the system
-        """
-        with open(database_path, "r") as f:
-            data = load(f)
-        return data['users']
-
     def writeNewUser(self):
         """
         Write the current new user created on JSON database
         """
-        data = Database.readDatabase()
-        newUser = { "id": self.id,
-                    "username": self.username,
-                    "email": self.email,
-                    "password": self.hashPassword,
-                    "cpf": self.cpf,
-                    "phone": self.phone,
-                    "state": self.state  
-                    }
-        data['users'].append(newUser)
-        with open(database_path, "w") as f:
+        data = Database.readDatabase(Database.db_profile)
+        newUser = self.__dict__
+        del newUser['id']
+
+        data[self.id].append(newUser)
+        with open(Database.db_profile, "w") as f:
             dump(data, f)
 
 
 class Database():
+    db_profile = Path("./passaBola/database/profiles.json")
+    db_events = Path("./passaBola/database/events.json")
+    db_registers = Path("./passaBola/database/events_register.json")
+    db_main = Path("./passaBola/database/database.json")
+
     @staticmethod
-    def readDatabase():
+    def readDatabase(database_path = db_main):
         with open(database_path, "r") as db:
             data = load(db)
         return data
 
     @staticmethod
-    def readData(key:str):
+    def readData(database_path, key:str):
         """
         Read all data registered in the system from a key
         """
@@ -214,27 +252,4 @@ class Database():
         except KeyError:
             raise KeyError("A chave informada é inválida.")
 
-    @staticmethod
-    def writeNewData(key:str, objectToAdd):
-        """
-        Write the current new data created on JSON database from a key
-        """
-        try:
-            data = Database.Database.readDatabase()   
-            newData = objectToAdd.__dict__
-
-            if (key == "teams"):
-                if newData['players']:
-                    for i in range(len(newData["players"])):
-                        newData['players'][i] = newData['players'][i].__dict__
-
-            if (key == "players"):
-                newData['birthday'] = newData['birthday'].strftime("%d-%m-%Y")
-
-            data[key].append(newData)
-            with open(database_path, "w") as f:
-                dump(data, f)
-        except KeyError:
-            raise KeyError("A chave informada é inválida.")
-        except Exception as e:
-            raise Exception(f"Um erro inesperado aconteceu.\n{e}")
+    

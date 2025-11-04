@@ -106,31 +106,59 @@ def complete_page():
     return render_template("complete.html")
 
 
-@app.route('/admin')
-@app.route('/admin/home')
+@app.route('/admin', methods=['GET'])
+@app.route('/admin/home', methods=['GET'])
 @login_required
 def admin_page():
    return render_template('adminPages/home.html')
 
-@app.route('/admin/new-event')
+@app.route('/admin/new-event', methods=['GET', 'POST'])
 @login_required
 def admin_newEvent_page():
     eventForm = EventForm()
-    
+
     if eventForm.validate_on_submit():
-      tryParse = [eventForm.min_age.data, eventForm.max_age.data, eventForm.max_total_team.data, eventForm.max_total_uni.data]
-      for field in tryParse:      
-        if not field.isnumeric() and not field:
-          flash(f'Esse campo deve ser do tipo numérico', category='warning')
-          return render_template('adminPages/writeEvent.html', form=eventForm)
-      
+      try:
+        tryParse = [eventForm.min_age.data, eventForm.max_age.data, eventForm.max_total_team.data, eventForm.max_total_uni.data, eventForm.cost_uni.data, eventForm.cost_team.data]
+        for field in tryParse:      
+          if not field.isnumeric() and not field:
+            flash(f'Esse campo deve conter apenas números', category='warning')
+            return
+        newEvent = Events(
+                title=eventForm.title.data,
+                address=eventForm.address.data,
+                state=eventForm.state.data,
+                begin_date=eventForm.event_date_start.check_validators,
+                end_date=eventForm.event_date_end.data,
+                event_description=eventForm.event_description.data,
+                reward_description=eventForm.event_reward.data,
+                min_age=eventForm.min_age.data,
+                max_age=eventForm.max_age.data,
+                max_uni_sub=eventForm.max_total_uni.data,
+                max_team_sub=eventForm.max_total_team.data,
+                cost_team_sub=eventForm.cost_team.data,
+                cost_uni_sub=eventForm.cost_uni.data,
+                linkedin=eventForm.linkedin_link.data,
+                instagram=eventForm.instagram_link.data,
+                whats=eventForm.whatsapp_link.data
+            ) 
+        newEvent.writeNewEvent()
+        flash("O novo evento foi criado com sucesso!", category='sucess')
 
+      except Exception:
+        flash('Não foi possível cadastar o novo evento. Verifique os campos', category='danger')
 
+    if eventForm.errors != {}:
+      for errors in eventForm.errors.values():
+        for e in errors:
+          flash(f'{e}', category='danger')
+    
+    
     
 
     return render_template('adminPages/writeEvent.html', form=eventForm)
 
-@app.route('/admin/events/<uuid:id>')
+@app.route('/admin/events/<uuid:id>', methods=['GET'])
 @login_required
 def admin_myEvents_page(id):
    attemptedUser = User.findUserById(id)
