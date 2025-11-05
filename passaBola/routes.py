@@ -117,18 +117,20 @@ def admin_page():
 def admin_newEvent_page():
     eventForm = EventForm()
 
+    print("to aqui entrando pra validar o submit")
+    print(eventForm.validate_on_submit())
     if eventForm.validate_on_submit():
       try:
-        tryParse = [eventForm.min_age.data, eventForm.max_age.data, eventForm.max_total_team.data, eventForm.max_total_uni.data, eventForm.cost_uni.data, eventForm.cost_team.data]
-        for field in tryParse:      
-          if not field.isnumeric() and not field:
-            flash(f'Esse campo deve conter apenas números', category='warning')
-            return
+        # tryParse = [eventForm.min_age.data, eventForm.max_age.data, eventForm.max_total_team.data, eventForm.max_total_uni.data, eventForm.cost_uni.data, eventForm.cost_team.data]
+        # for field in tryParse:      
+        #   if not field.isnumeric() and not field:
+        #     flash(f'Esse campo deve conter apenas números', category='warning')
+        #     return redirect(url_for('admin_newEvent_page'))
         newEvent = Events(
                 title=eventForm.title.data,
                 address=eventForm.address.data,
                 state=eventForm.state.data,
-                begin_date=eventForm.event_date_start.check_validators,
+                begin_date=eventForm.event_date_start.data,
                 end_date=eventForm.event_date_end.data,
                 event_description=eventForm.event_description.data,
                 reward_description=eventForm.event_reward.data,

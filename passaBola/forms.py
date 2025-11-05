@@ -98,4 +98,4 @@ class EventForm(FlaskForm):
     whatsapp_link = StringField(label="Whatsapp", validators=[Length(max=20)])
     other_link = StringField(label="Outro", validators=[Length(max=20)])
 
-    submit = SubmitField(label="Criar Evento")
+    submit = SubmitField(label="Criar Evento", name="crete-event")

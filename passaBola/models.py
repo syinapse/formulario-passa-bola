@@ -76,11 +76,11 @@ class Teams():
     def writeTeams(self):
         db = Database.readDatabase()
 
-        newTeam = self.__dict__
+        newTeam = self.__dict__.copy()
         
         if newTeam['players']:
             for i in range(len(newTeam["players"])):
-                newTeam['players'][i] = newTeam['players'][i].__dict__
+                newTeam['players'][i] = newTeam['players'][i].__dict__.copy()
 
         db['teams'].append(newTeam)
         with open(database_path, 'w') as tm:
@@ -100,7 +100,7 @@ class Events():
         self.title = title
         self.address = address
         self.state = state
-        self.eventDates = {"start": begin_date, "end": end_date}
+        self.eventDates = {"start": begin_date.strftime("%d-%m-%Y"), "end": end_date.strftime("%d-%m-%Y")}
         self.event_description = event_description
         self.reward_description = reward_description
         self.eventAge = {"min": min_age, "max": max_age}
@@ -149,12 +149,12 @@ class Events():
         """
         Write the current new user created on JSON database
         """
-        data:dict = Database.readDatabase(Database.db_events)
-        newEvent = self.__dict__
+        path = Database.db_events
+        data:dict = Database.readDatabase(path)
+        newEvent = self.__dict__.copy()
         del newEvent['id']
-
-        data[self.id].append(newEvent)
-        with open(Database.db_events, "w") as f:
+        data[self.id] = (newEvent)
+        with open(path, "w") as f:
             dump(data, f)
 
 
@@ -219,12 +219,13 @@ class User(UserMixin):
         """
         Write the current new user created on JSON database
         """
-        data = Database.readDatabase(Database.db_profile)
-        newUser = self.__dict__
+        path = Database.db_profile
+        data = Database.readDatabase(path)
+        newUser = self.__dict__.copy()
         del newUser['id']
 
         data[self.id].append(newUser)
-        with open(Database.db_profile, "w") as f:
+        with open(path, "w") as f:
             dump(data, f)
 
 
@@ -237,7 +238,7 @@ class Database():
     @staticmethod
     def readDatabase(database_path = db_main):
         with open(database_path, "r") as db:
-            data = load(db)
+            data: dict = load(db)
         return data
 
     @staticmethod
@@ -246,10 +247,13 @@ class Database():
         Read all data registered in the system from a key
         """
         try:
+            if not Path(database_path).exists():
+                with open(database_path, "w") as db:
+                    dump(dict(), db)
+                return dict()
+
             with open(database_path, "r") as f:
                 data = load(f)
             return data[key]
         except KeyError:
             raise KeyError("A chave informada é inválida.")
-
-    

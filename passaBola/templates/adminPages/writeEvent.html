@@ -6,7 +6,9 @@
         <h1 class="align-self-baseline my-4 fs-2" id="draft_title">Meu Evento #1</h1>
         <button class="btn btn-outline-dark fw-semibold" style="height: fit-content;">Preencher automático</button>
     </div>
-    <form class="row needs-validation" novalidate>
+    <form class="row needs-validation" method="post" novalidate>
+        {{ form.hidden_tag() }}
+
         <div class="row">
             <div class="col">
                 <div class="align-input-event">
@@ -106,7 +108,7 @@
         </div>
         <div class="row mt-2 text-end">
             <div class="col">
-                <button class="btn btn-pb-secondary size-btn-event mx-4">Limpar</button>
+                <button type="reset" class="btn btn-pb-secondary size-btn-event mx-4">Limpar</button>
                 {{ form.submit(class="btn btn-pb-primary size-btn-event")}}
             </div>
         </div>
