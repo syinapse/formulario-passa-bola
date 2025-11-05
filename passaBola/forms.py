@@ -2,14 +2,14 @@ from flask_wtf import FlaskForm
 from flask import flash
 from wtforms import StringField, EmailField, SubmitField, TextAreaField, DateField, SelectField ,ValidationError, PasswordField
 from wtforms.validators import DataRequired, Email, Length
-from passaBola.models import Player, Teams
+from passaBola.models import Database
 from passaBola.brasilApi import getStatesAtTuple
 from datetime import datetime, timedelta
 
 states = getStatesAtTuple()
 
 class PlayerForm(FlaskForm):
-    data = Player.readPlayers()
+    data = Database.readDatabase(Database.db_main)
 
     def validate_email(self, email_to_check):
         for i in range(len(self.data)):
@@ -44,7 +44,7 @@ class PlayerForm(FlaskForm):
 
 
 class TeamForm(FlaskForm):
-    data = Teams.readTeams()
+    data = Database.readDatabase(Database.db_main)
 
     def validate_players(self, players_to_check = ""):
         if not players_to_check.data:
@@ -81,10 +81,11 @@ class LoginForm(FlaskForm):
     submit = SubmitField(label="Entrar")
 
 class EventForm(FlaskForm):
+    data = Database.readDatabase(Database.db_events)
 
     def validate_title(self, title_to_check: StringField):
-        for i in range(len(self.data)):
-            if title_to_check.data == self.data[i]['title']:
+        for key in self.data.keys():
+            if title_to_check.data == self.data[key]['title']:
                 raise ValidationError('O Título do seu evento deve ser único.')
 
     def validate_event_date_start(self, current_date: DateField):
@@ -128,7 +129,7 @@ class EventForm(FlaskForm):
         value = int(value)
 
     def validate_cost_team(self, cost_team_check: StringField):
-        self.validate_cost_uni()
+        self.validate_cost_uni(cost_team_check)
 
     def socialMedia(self, value:str):
         if (not value.startswith('@')):
