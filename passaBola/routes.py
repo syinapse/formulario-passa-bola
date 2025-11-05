@@ -117,15 +117,11 @@ def admin_page():
 def admin_newEvent_page():
     eventForm = EventForm()
 
-    print("to aqui entrando pra validar o submit")
-    print(eventForm.validate_on_submit())
     if eventForm.validate_on_submit():
       try:
-        # tryParse = [eventForm.min_age.data, eventForm.max_age.data, eventForm.max_total_team.data, eventForm.max_total_uni.data, eventForm.cost_uni.data, eventForm.cost_team.data]
-        # for field in tryParse:      
-        #   if not field.isnumeric() and not field:
-        #     flash(f'Esse campo deve conter apenas números', category='warning')
-        #     return redirect(url_for('admin_newEvent_page'))
+        if (eventForm.event_date_start.data > eventForm.event_date_end.data):
+          raise ValueError("A data de inicio do evento não pode ser menor que a data de encerramento")
+
         newEvent = Events(
                 title=eventForm.title.data,
                 address=eventForm.address.data,
@@ -145,19 +141,16 @@ def admin_newEvent_page():
                 whats=eventForm.whatsapp_link.data
             ) 
         newEvent.writeNewEvent()
-        flash("O novo evento foi criado com sucesso!", category='sucess')
+        flash("O novo evento foi criado com sucesso!", category='success')
 
-      except Exception:
-        flash('Não foi possível cadastar o novo evento. Verifique os campos', category='danger')
+      except Exception as e:
+        flash(f'{e}', category='danger')
 
     if eventForm.errors != {}:
       for errors in eventForm.errors.values():
         for e in errors:
           flash(f'{e}', category='danger')
     
-    
-    
-
     return render_template('adminPages/writeEvent.html', form=eventForm)
 
 @app.route('/admin/events/<uuid:id>', methods=['GET'])

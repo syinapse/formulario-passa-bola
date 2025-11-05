@@ -4,6 +4,7 @@ from wtforms import StringField, EmailField, SubmitField, TextAreaField, DateFie
 from wtforms.validators import DataRequired, Email, Length
 from passaBola.models import Player, Teams
 from passaBola.brasilApi import getStatesAtTuple
+from datetime import datetime, timedelta
 
 states = getStatesAtTuple()
 
@@ -80,6 +81,59 @@ class LoginForm(FlaskForm):
     submit = SubmitField(label="Entrar")
 
 class EventForm(FlaskForm):
+
+    def validate_title(self, title_to_check: StringField):
+        for i in range(len(self.data)):
+            if title_to_check.data == self.data[i]['title']:
+                raise ValidationError('O Título do seu evento deve ser único.')
+
+    def validate_event_date_start(self, current_date: DateField):
+        if current_date.data <= datetime.now().date():
+            raise ValidationError(f"A data do evento não pode ser menor ou igual a data de hoje {datetime.now().strftime('%d/%m/%y')}")
+        if current_date.data > datetime.now().date() + timedelta(365*10 + 2):
+            raise ValidationError(f'A data do evento não pode começar daqui 10 anos')
+
+    def validate_event_date_end(self, current_date: DateField):
+        if current_date.data <= datetime.now().date():
+            raise ValidationError(f"A data do evento não pode ser menor ou igual a data de hoje {datetime.now().strftime('%d/%m/%y')}")
+        if current_date.data > datetime.now().date() + timedelta(365*10 + 2):
+            raise ValidationError(f'A data do evento não pode encerrar daqui 10 anos')
+    
+    def validate_min_age(self, min_age_check: StringField):
+        value = min_age_check.data
+        if not value.isnumeric():
+            raise ValueError("A idade informada deve ser um número inteiro")
+        value = int(value)
+        if value > 80 or value < 0:
+            raise ValidationError('A idade informada é inválida')
+    
+    def validate_max_age(self, max_age_check: StringField):
+        self.validate_min_age(max_age_check)
+
+    def validate_max_total_uni(self, totals_check: StringField):
+        value = totals_check.data
+        if not value.isnumeric():
+            raise ValueError('O total informado deve ser um número inteiro')
+        value = int(value)
+        if value > 10000 or value < 0:
+            raise ValidationError('O total informado é inválido')
+    
+    def validate_max_total_team(self, totals_teams_check: StringField):
+        self.validate_max_total_uni(totals_teams_check)
+    
+    def validate_cost_uni(self, cost_uni_check: StringField):
+        value = cost_uni_check.data
+        if not value.isnumeric():
+            raise ValueError('O total informado deve ser um número inteiro')
+        value = int(value)
+
+    def validate_cost_team(self, cost_team_check: StringField):
+        self.validate_cost_uni()
+
+    def socialMedia(self, value:str):
+        if (not value.startswith('@')):
+            value = '@' + value
+
     title = StringField(label="Título do Evento *", validators=[DataRequired(), Length(min=5, max=30)])
     address = StringField(label="Endereço *", validators=[DataRequired(), Length(max=50)])
     state = SelectField(label="Estado *", choices=states, validators=[DataRequired()])
