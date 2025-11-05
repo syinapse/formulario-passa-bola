@@ -1,9 +1,13 @@
 {% extends 'admin_base.html' %}
 
+{% block script%}
+<script src="../../static/admin_script.js"></script>
+{% endblock %}
+
 {% block admincontent %}
 <section class="container-lg ">
     <div class="d-flex justify-content-between align-items-center">
-        <h1 class="align-self-baseline my-4 fs-2" id="draft_title">Meu Evento #1</h1>
+        <h1 class="align-self-baseline my-4 fs-2" id="mainTitle">Meu Novo Evento</h1>
         <button class="btn btn-outline-dark fw-semibold" style="height: fit-content;">Preencher automático</button>
     </div>
     <form class="row needs-validation" method="post" novalidate>
@@ -13,7 +17,7 @@
             <div class="col">
                 <div class="align-input-event">
                     {{ form.title.label(class="form-label") }}
-                    {{ form.title(placeholder="Meu novo evento", class="form-control") }}
+                    {{ form.title(placeholder="Meu novo evento", class="form-control", id="inputTitle") }}
                 </div>
                 
                 <div class="align-input-event">
