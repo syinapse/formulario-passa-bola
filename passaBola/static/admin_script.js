@@ -33,19 +33,19 @@ const handlerDefaultInput = function(e) {
     inputAddressEvent.value = 'Vila Mariana 233'
     selectState.value = 'sp'
     inputWhatsapp.value = '11987654321'
-    inputEventDescription.value = `A Copa Passe a Bola é mais do que um torneio: é uma celebração da força, talento e paixão das mulheres no futebol. Em sua segunda edição, queremos descobrir novos talentos, fortalecer a comunidade e oferecer uma experiência única de competição, visibilidade e oportunidade. Traga seu time ou inscreva-se individualmente e venha fazer história! 
+    inputEventDescription.value = `A Copa Passa a Bola é mais do que um torneio: é uma celebração da força, talento e paixão das mulheres no futebol. Em sua segunda edição, queremos descobrir novos talentos, fortalecer a comunidade e oferecer uma experiência única de competição, visibilidade e oportunidade. Traga seu time ou inscreva-se individualmente e venha fazer história! 
     
 
     Sobre o Campeonato
 
-    A Copa Passe a Bola 2025 é um torneio de Futebol de Campo (11 jogadoras) voltado para atletas amadoras acima de 16 anos. O objetivo é promover integração, revelar talentos e criar um ambiente seguro e profissional para a prática do esporte.
+    A Copa Passa a Bola 2025 é um torneio de Futebol de Campo (11 jogadoras) voltado para atletas amadoras acima de 16 anos. O objetivo é promover integração, revelar talentos e criar um ambiente seguro e profissional para a prática do esporte.
     Formato da Competição
         Fase de Grupos: As equipes serão divididas em grupos e jogarão em turno único. As melhores classificadas avançam para a fase eliminatória.
         Fase Eliminatória (mata-mata): Jogos únicos de quartas de final, semifinal e final.
         Local dos Jogos: Campos parceiros na cidade de São Paulo. Os locais exatos serão divulgados após o encerramento das inscrições.
     Categorias de Inscrição
         Inscrição de Time: Equipes já formadas com no mínimo 11 e no máximo 15 jogadoras, mais comissão técnica.
-        Inscrição Individual: Para jogadoras sem time. A organização formará equipes chamadas “Equipes Passe a Bola”.
+        Inscrição Individual: Para jogadoras sem time. A organização formará equipes chamadas “Equipes Passa a Bola”.
     Documentos e Requisitos Obrigatórios
         Idade mínima: 18 anos até a data da inscrição.
         Cópia digitalizada de documento de identificação.
