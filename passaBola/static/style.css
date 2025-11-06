@@ -582,7 +582,11 @@ footer {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 80%;
+  margin: auto;
+}
+
+.admin-content img {
+  width: 85%;
 }
 
 .align-input-event {
