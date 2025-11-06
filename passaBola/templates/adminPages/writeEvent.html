@@ -8,7 +8,7 @@
 <section class="container-lg ">
     <div class="d-flex justify-content-between align-items-center">
         <h1 class="align-self-baseline my-4 fs-2" id="mainTitle">Meu Novo Evento</h1>
-        <button class="btn btn-outline-dark fw-semibold" style="height: fit-content;">Preencher automático</button>
+        <button class="btn btn-outline-dark fw-semibold" style="height: fit-content;" data-bs-toggle="modal" data-bs-target="#autofillModal">Preencher automático</button>
     </div>
     <form class="row needs-validation" method="post" novalidate>
         {{ form.hidden_tag() }}
@@ -22,27 +22,27 @@
                 
                 <div class="align-input-event">
                     {{ form.event_date_start.label(class="form-label") }}
-                    {{ form.event_date_start(class="form-control") }}
+                    {{ form.event_date_start(class="form-control", id="inputEventDateStart") }}
                 </div>
             </div>
             <div class="col">
                 <div class="align-input-event">
                     {{ form.address.label(class="form-label") }}
-                    {{ form.address(placeholder="Rua Teste 123", class="form-control") }}
+                    {{ form.address(placeholder="Rua Teste 123", class="form-control", id="inputAddressEventDate") }}
                 </div>
                 <div class="align-input-event">
                     {{ form.event_date_end.label(class="form-label") }}
-                    {{ form.event_date_end(class="form-control") }}
+                    {{ form.event_date_end(class="form-control", id="inputDateEventEnd") }}
                 </div>
             </div>
             <div class="col">
                 <div class="align-input-event">
                     {{ form.state.label(class="form-label") }}
-                    {{ form.state(class="form-select") }}
+                    {{ form.state(class="form-select", id="selectState") }}
                 </div>
                 <div class="align-input-event">
                     {{ form.whatsapp_link.label(class="form-label") }}
-                    {{ form.whatsapp_link(class="form-control", placeholder="(11) 98765-4321") }}
+                    {{ form.whatsapp_link(class="form-control", placeholder="(11) 98765-4321", id="inputWhatsapp") }}
                 </div>
             </div>
         </div>
@@ -51,13 +51,13 @@
             <div class="col">
                 <div class="align-input-event">
                     {{ form.event_description.label(class="form-label") }}
-                    {{ form.event_description(class="form-control", placeholder="Escreva aqui...", style="height: 200px; field-sizing: content;") }}
+                    {{ form.event_description(class="form-control", placeholder="Escreva aqui...", id="inputEventDescription", style="height: 200px; field-sizing: content;") }}
                 </div>
             </div>
             <div class="col">
                 <div class="align-input-event">
                     {{ form.event_reward.label(class="form-label") }}
-                    {{ form.event_reward(class="form-control", placeholder="Escreva aqui...", style="height: 200px; field-sizing: content;") }}
+                    {{ form.event_reward(class="form-control", placeholder="Escreva aqui...", id="inputEventReward", style="height: 200px; field-sizing: content;") }}
                 </div>
             </div>
         </div>
@@ -66,47 +66,47 @@
             <div class="col">
                 <div class="align-input-event">
                     {{ form.min_age.label(class="form-label") }}
-                    {{ form.min_age(class="form-control", placeholder="Escreva aqui...") }}
+                    {{ form.min_age(class="form-control", placeholder="Escreva aqui...", id="inputMinAge") }}
                 </div>
                 <div class="align-input-event">
                     {{ form.max_age.label(class="form-label") }}
-                    {{ form.max_age(class="form-control", placeholder="Escreva aqui...") }}
+                    {{ form.max_age(class="form-control", placeholder="Escreva aqui...", id="inputMaxAge") }}
                 </div>
             </div>
             <div class="col">
                 <div class="align-input-event">
                     {{ form.max_total_uni.label(class="form-label") }}
-                    {{ form.max_total_uni(class="form-control", placeholder="00") }}
+                    {{ form.max_total_uni(class="form-control", placeholder="00", id="inputMaxTotalUni") }}
                 </div>
                 <div class="align-input-event">
                     {{ form.max_total_team.label(class="form-label") }}
-                    {{ form.max_total_team(class="form-control", placeholder="00") }}
+                    {{ form.max_total_team(class="form-control", placeholder="00", id="inputMaxTotalTeam") }}
                 </div>
             </div>
             <div class="col">
                 <div class="align-input-event">
                     {{ form.cost_uni.label(class="form-label") }}
-                    {{ form.cost_uni(class="form-control", placeholder="R$ 00,00") }}
+                    {{ form.cost_uni(class="form-control", placeholder="R$ 00,00", id="inputCostUni") }}
                 </div>
                 <div class="align-input-event">
                     {{ form.cost_team.label(class="form-label") }}
-                    {{ form.cost_team(class="form-control", placeholder="R$ 00,00") }}
+                    {{ form.cost_team(class="form-control", placeholder="R$ 00,00", id="inputCostTeam") }}
                 </div>
             </div>
             <div class="col">
                 <div class="align-input-event">
                     {{ form.linkedin_link.label(class="form-label") }}
-                    {{ form.linkedin_link(class="form-control", placeholder="@perfil") }}
+                    {{ form.linkedin_link(class="form-control", placeholder="@perfil", id="inputLinkedin") }}
                 </div>
                 <div class="align-input-event">
                     {{ form.instagram_link.label(class="form-label") }}
-                    {{ form.instagram_link(class="form-control", placeholder="@perfil") }}
+                    {{ form.instagram_link(class="form-control", placeholder="@perfil", id="inputInstagram") }}
                 </div>
             </div>
             <div class="col">
                 <div class="align-input-event">
                     {{ form.other_link.label(class="form-label") }}
-                    {{ form.other_link(class="form-control", placeholder="@perfil") }}
+                    {{ form.other_link(class="form-control", placeholder="@perfil", id="inputOther") }}
                 </div>
             </div>
         </div>
@@ -117,6 +117,48 @@
             </div>
         </div>
     </form>
+    <div
+    class="modal fade"
+    id="autofillModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">
+            Preencher campos
+          </h1>
+          <button
+            type="button"
+            class="btn btn-danger btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          Clicando em sim, todos os campos serão preenchidas automaticamente.
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-pb-secondary"
+            data-bs-dismiss="modal"
+          >
+            Não
+          </button>
+          <a
+            type="button"
+            class="btn btn-pb-primary"
+            id="btnAuto-fill"
+            data-bs-dismiss="modal"
+            >Sim</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
 
