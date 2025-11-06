@@ -1,5 +1,6 @@
 const title = document.getElementById('inputTitle')
 const mainTitle = document.getElementById('mainTitle')
+const btnClean = document.getElementById('btnClean')
 
 const inputEventDateStart = document.getElementById('inputEventDateStart')
 const inputAddressEvent = document.getElementById('inputAddressEventDate')
@@ -66,6 +67,28 @@ const handlerDefaultInput = function(e) {
     inputOther.value = '@passabola'
 }
 
+const handleCleanFields = function() {
+    title.value = ''
+    mainTitle.innerText = title.value
+    inputEventDateStart.value = ''
+    inputDateEventEnd.value = ''
+    inputAddressEvent.value = ''
+    selectState.value = ''
+    inputWhatsapp.value = ''
+    inputEventDescription.value = ''
+    inputEventReward.value = ''
+    inputMinAge.value = ''
+    inputMaxAge.value = ''
+    inputMaxTotalTeam.value = ''
+    inputMaxTotalUni.value = ''
+    inputCostUni.value = ''
+    inputCostTeam.value = ''
+    inputLinkedin.value = ''
+    inputInstagram.value = ''
+    inputOther.value = ''
+}
+
 title.addEventListener('input', handlerInputOnChange);
 title.addEventListener('change', handlerInputOnChange);
 btnAuto.addEventListener('click', handlerDefaultInput);
+btnClean.addEventListener('click', handleCleanFields);

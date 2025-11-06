@@ -112,7 +112,7 @@
         </div>
         <div class="row mt-2 text-end">
             <div class="col">
-                <input type="reset" class="btn btn-pb-secondary size-btn-event mx-4" value="Limpar">
+                <!-- <button class="btn btn-pb-secondary size-btn-event mx-4" data-bs-toggle="modal" data-bs-target="#confirmClean">Limpar</button>   -->
                 {{ form.submit(class="btn btn-pb-primary size-btn-event")}}
             </div>
         </div>
@@ -152,6 +152,49 @@
             type="button"
             class="btn btn-pb-primary"
             id="btnAuto-fill"
+            data-bs-dismiss="modal"
+            >Sim</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <div
+    class="modal fade"
+    id="confirmClean"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">
+            Limpar campos
+          </h1>
+          <button
+            type="button"
+            class="btn btn-danger btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          Você deseja limpar todos os campos do formulário do evento?
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-pb-secondary"
+            data-bs-dismiss="modal"
+          >
+            Não
+          </button>
+          <a
+            type="button"
+            class="btn btn-pb-primary"
+            id="btnClean"
             data-bs-dismiss="modal"
             >Sim</a
           >
