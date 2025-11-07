@@ -12,7 +12,7 @@
     />
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}"/>
     {% block csslink %} {% endblock %}
-    <link rel="shortcut icon" href="../static/assets/LogoPassaBola.png" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='assets/LogoPassaBola.png') }}" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -24,12 +24,12 @@
   <body>
     <header>
       <a class="logo-header" href="{{ url_for('home_page')}}">
-        <img src="../static/assets/LogoPassaBola.png" alt="Logo Passa a Bola" />
+        <img src="{{ url_for('static', filename='assets/LogoPassaBola.png') }}" alt="Logo Passa a Bola" />
         <span>Passa a Bola</span>
       </a>
       {% if current_user.is_authenticated %}
         <div class="d-flex gap-2 justify-content-center align-items-center dropdown">
-          <img src="../static/assets/noprofilephoto.png" alt="noprofilephoto" class="w-25 h-25">
+          <img src="{{ url_for('static', filename='assets/noprofilephoto.png') }}" alt="noprofilephoto" class="w-25 h-25">
           <p class="fw-bold text-white dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
             {{ current_user.username }}
           </p>
