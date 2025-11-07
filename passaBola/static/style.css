@@ -63,6 +63,14 @@ body {
   color: white !important;
 }
 
+.text-pb-primary {
+  color: var(--pb-primary) !important;
+}
+
+.text-pb-primary:hover {
+  color: var(--pb-primary-hover) !important;
+} 
+
 .size-btn-event {
   width: 14.6875rem;
   height: 3.125rem;

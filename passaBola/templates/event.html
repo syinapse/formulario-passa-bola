@@ -8,25 +8,15 @@
   <main>
     <div class="share-icons">
       <span>Compartilhe:</span>
-      <a href="#"><i class="fab fa-linkedin"></i></a>
-      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.linkedin.com/in/{{ event.linkedin }}/" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://www.instagram.com/{{ event.instagram }}/" target="_blank"><i class="fab fa-instagram"></i></a>
     </div>
 
-    <h1 class="Campeonato">COPA PASSA A BOLA 2025 - A VEZ DELAS!</h1>
-    <p class="subtitle">
-      A maior vitrine do futebol feminino amador está de volta!
-    </p>
-    <p>
-      A Copa Passa a Bola é mais do que um torneio: é uma celebração da força,
-      talento e paixão das mulheres no futebol. Em sua segunda edição, queremos
-      descobrir novos talentos, fortalecer a comunidade e oferecer uma
-      experiência única de competição, visibilidade e oportunidade. Traga seu
-      time ou inscreva-se individualmente e venha fazer história!
-    </p>
+    <h1 class="Campeonato">{{ event.title }}</h1>
 
     <div class="event-details">
-      <span><i class="fas fa-map-marker-alt"></i> São Paulo / SP</span>
-      <span><i class="fas fa-calendar-alt"></i> 05/2025 - 07/2025</span>
+      <span><i class="fas fa-map-marker-alt"></i>{{ event.state }}</span>
+      <span><i class="fas fa-calendar-alt"></i> {{ event.eventDates['start'] }} - {{ event.eventDates['end'] }}</span>
     </div>
 
     <section class="regulation">
@@ -35,28 +25,13 @@
       <ol>
         <li>
           <strong>Sobre o Campeonato</strong>
-          <p>
-            A Copa Passa a Bola 2025 é um torneio de Futebol de Campo (11
-            jogadoras) voltado para atletas amadoras acima de 16 anos. O
-            objetivo é promover integração, revelar talentos e criar um ambiente
-            seguro e profissional para a prática do esporte.
-          </p>
+          {{ event.event_description }}
         </li>
         <li>
-          <strong>Formato da Competição</strong>
+          <strong>Local dos Jogos</strong>
           <ul>
             <li>
-              Fase de Grupos: As equipes serão divididas em grupos e jogarão em
-              turno único. As melhores classificadas avançam para a fase
-              eliminatória.
-            </li>
-            <li>
-              Fase Eliminatória (mata-mata): Jogos únicos de quartas de final,
-              semifinal e final.
-            </li>
-            <li>
-              Local dos Jogos: Campos parceiros na cidade de São Paulo. Os
-              locais exatos serão divulgados após o encerramento das inscrições.
+             {{ event.address }}
             </li>
           </ul>
         </li>
@@ -64,19 +39,18 @@
           <strong>Categorias de Inscrição</strong>
           <ul>
             <li>
-              <b>Inscrição de Time:</b> Equipes já formadas com no mínimo 11 e
-              no máximo 15 jogadoras, mais comissão técnica.
+              <b>Inscrição de Time:</b> Será possível se insrever no máximo {{ event.totalTeams }} times, mais comissão técnica.
             </li>
             <li>
-              <b>Inscrição Individual:</b> Para jogadoras sem time. A
-              organização formará equipes chamadas “Equipes Passa a Bola”.
+              <b>Inscrição Individual:</b> Para jogadoras sem time, É possível se inscrever com no máximo {{ event.totalPlayers }}.
             </li>
           </ul>
         </li>
         <li>
           <strong>Documentos e Requisitos Obrigatórios</strong>
           <ul>
-            <li>Idade mínima: 18 anos até a data da inscrição.</li>
+            <li>Idade mínima: {{ event.eventAge['min'] }} anos até a data da inscrição.</li>
+            <li>Idade mínima: {{ event.eventAge['max'] }} anos</li>
             <li>Cópia digitalizada de documento de identificação.</li>
             <li>
               Atestado médico de aptidão para prática de atividade física,
@@ -86,22 +60,15 @@
         </li>
         <li>
           <strong>Prazos e Taxas</strong>
-          <p>📅 Inscrições: 10/09/2025 a 20/10/2025.</p>
           <p>
-            💰 Inscrição por Time: R$ 450,00 (cobre custos de arbitragem,
-            organização e premiação).
+            💰 Inscrição por Time: R$ {{ event.eventCostTeam }}.
           </p>
-          <p>💰 Inscrição Individual: R$ 35,00.</p>
+          <p>💰 Inscrição Individual: R$ {{ event.eventCostPlayer }}</p>
         </li>
         <li>
           <strong>Premiação</strong>
           <ul>
-            <li>Equipe Campeã: Troféu, medalhas e prêmio de R$ 3.000,00.</li>
-            <li>Vice-Campeã: Troféu, medalhas e prêmio de R$ 1.500,00.</li>
-            <li>
-              Destaques Individuais: Artilheira, Melhor Goleira e Craque do
-              Campeonato.
-            </li>
+            {{ event.reward_description }}
           </ul>
         </li>
       </ol>

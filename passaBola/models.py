@@ -96,11 +96,22 @@ class Teams():
 # Classe placeholder para futuros desenvolvimentos de Eventos.
 class Events():
     def __init__(self, title, address, state, begin_date, end_date, event_description, reward_description, min_age, max_age, max_uni_sub, max_team_sub, cost_uni_sub = 0, cost_team_sub = 0, linkedin = "", instagram = "", whats = "", other = ""):
+        
+        def getDates():
+            start = begin_date
+            end = end_date
+            if type(begin_date) != str:
+                start = begin_date.strftime("%d-%m-%Y")
+            
+            if type(end_date) != str:
+                end = end_date.strftime("%d-%m-%Y")
+            return {"start": start, "end": end}
+        
         self.id = uuid7str()
         self.title = title
         self.address = address
         self.state = state
-        self.eventDates = {"start": begin_date.strftime("%d-%m-%Y"), "end": end_date.strftime("%d-%m-%Y")}
+        self.eventDates = getDates()
         self.event_description = event_description
         self.reward_description = reward_description
         self.eventAge = {"min": min_age, "max": max_age}
@@ -116,7 +127,7 @@ class Events():
     @classmethod
     def findEventById(cls, event_id):
         try:
-            all_events: dict = Database.readDatabase(Database.db_profile)
+            all_events: dict = Database.readDatabase(Database.db_events)
             if (event_id not in all_events.keys()):
                 return None
             foundedEvent = all_events[event_id]
@@ -124,19 +135,20 @@ class Events():
                 title=foundedEvent['title'],
                 address=foundedEvent['address'],
                 state=foundedEvent['state'],
-                begin_date=foundedEvent['begin-date'],
-                end_date=foundedEvent['end-date'],
+                begin_date=foundedEvent['eventDates']['start'],
+                end_date=foundedEvent['eventDates']['end'],
                 event_description=['event_description'],
                 reward_description=foundedEvent['reward_description'],
-                min_age=foundedEvent['min_age'],
-                max_age=foundedEvent['max_age'],
-                max_uni_sub=foundedEvent['max_uni_sub'],
-                max_team_sub=foundedEvent['max_team_sub'],
-                cost_team_sub=foundedEvent['cost_team_sub'],
-                cost_uni_sub=foundedEvent['cost_uni_sub'],
+                min_age=foundedEvent['eventAge']['min'],
+                max_age=foundedEvent['eventAge']['max'],
+                max_uni_sub=foundedEvent['totalPlayers'],
+                max_team_sub=foundedEvent['totalTeams'],
+                cost_team_sub=foundedEvent['eventCostTeam'],
+                cost_uni_sub=foundedEvent['eventCostPlayer'],
                 linkedin=foundedEvent['linkedin'],
                 instagram=foundedEvent['instagram'],
-                whats=foundedEvent['whats']
+                whats=foundedEvent['whatsapp'],
+                other=foundedEvent['other']
             )
             event.id = event_id
             return event

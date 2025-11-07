@@ -3,9 +3,10 @@
 from passaBola import app,cpf_api_key
 from flask import render_template, flash, redirect, url_for, request
 from passaBola.forms import PlayerForm, TeamForm, LoginForm, EventForm
-from passaBola.models import Player, Teams, User, Events
+from passaBola.models import Player, Teams, User, Events, Database
 from passaBola.brasilApi import getBrazilStates
 from flask_login import login_user, logout_user, login_required
+import os
 
 # Define a rota para a página principal do formulário, aceitando métodos GET e POST.
 @app.route("/login", methods=["GET", "POST"])
@@ -30,9 +31,29 @@ def login_page():
 def home_page():
    return render_template('home.html')
 
-@app.route("/event", methods=["GET", "POST"])
-def event_page():
-     # Instancia os dois formulários que serão usados na página.
+@app.route('/home/events')
+def home_events_page():
+    all_users = Database.readDatabase(Database.db_profile)
+    all_events = []
+    for data in all_users.values():
+        for event_id in data['events']:
+            all_events.append(event_id)
+    all_events_total = len(all_events)
+
+    return render_template('home_event.html', all_events=all_events, all_events_total=all_events_total)
+
+@app.route('/event')
+@app.route("/event/<uuid:event_id>", methods=["GET", "POST"])
+def event_page(event_id = None):
+    if not event_id:
+        flash(f'ERRO: Informe um ID antes de acessar os eventos', category='danger')
+        return redirect(url_for('home_page'))
+
+    event = Events.findEventById(event_id)
+    if not event:
+        flash(f'Evento não encontrado. Acesse um evento existente', category='warning')
+        return redirect(url_for('home_page'))
+
     form = PlayerForm(state="")
     teamForm = TeamForm(teamState="")
 
@@ -98,7 +119,7 @@ def event_page():
               flash(f'{e}', category='danger')
 
     # Renderiza o template da página de eventos, passando os dois formulários para o HTML.
-    return render_template("event.html", form=form, teamForm=teamForm)
+    return render_template("event.html", form=form, teamForm=teamForm, event=event)
 
 # Define a rota para a página de conclusão/sucesso.
 @app.route('/complete')
@@ -156,8 +177,20 @@ def admin_newEvent_page():
 @app.route('/admin/events/<uuid:id>', methods=['GET'])
 @login_required
 def admin_myEvents_page(id):
-   attemptedUser = User.findUserById(id)
-   return render_template('adminPages/myEvents.html', user=attemptedUser)
+  try:
+      attemptedUser = User.findUserById(str(id))
+      userEvents = []
+      if attemptedUser:
+        user_events_id = attemptedUser.events
+        for event_id in user_events_id:
+          userEvents.append(Events.findEventById(event_id))  
+      userEventsTotal = len(userEvents)
+
+      return render_template('adminPages/myEvents.html', userEvents=userEvents, userEventsTotal=userEventsTotal)
+  except Exception as e:
+   # flash(f'ERRO: {e}', category='danger')
+   # return redirect(url_for('home_page'))
+   raise
 
 
 @app.route('/logout')
