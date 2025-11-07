@@ -8,8 +8,8 @@
     </div>
 
     <div class="d-flex justify-content-center gap-4">
-        {% if userEventsTotal > 0 %}
-            {% for event in userEvents %}
+        {% if all_events_total > 0 %}
+            {% for event in all_events %}
                 <article class="bg-white rounded-3 shadow-sm p-3" style="width: 21.25rem;">
                     <div class="border-bottom border-black pb-2 mb-3">
                         <h3 class="fs-5 mb-0 text-start">{{ event.title }}</h3>

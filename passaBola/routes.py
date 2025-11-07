@@ -37,10 +37,10 @@ def home_events_page():
     all_events = []
     for data in all_users.values():
         for event_id in data['events']:
-            all_events.append(event_id)
+            all_events.append(Events.findEventById(event_id))
     all_events_total = len(all_events)
 
-    return render_template('home_event.html', all_events=all_events, all_events_total=all_events_total)
+    return render_template('home_events.html', all_events=all_events, all_events_total=all_events_total)
 
 @app.route('/event')
 @app.route("/event/<uuid:event_id>", methods=["GET", "POST"])
