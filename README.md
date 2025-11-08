@@ -5,6 +5,13 @@ Todas as inscrições (jogadoras e times) são armazenadas em uma base de dados 
 
 ---
 
+## Desenvolvido por Synapse
+* Carlos Eduardo Sanches Mariano RM: 561756
+* Leonardo Eiji Kina RM: 562784
+* Luís Scacchetti Mariano RM: 562241
+* Rodrigo do Santos Abubakir RM: 561479
+* Vitor Ramos de Farias RM: 561958
+
 
 ## 📋 Sumário
 - [Características Principais](#características-principais)
