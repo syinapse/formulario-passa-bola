@@ -200,14 +200,13 @@ class User(UserMixin):
     @classmethod
     def findUserByEmail(cls, email):
         try:
-            all_users:dict = Database.readDatabase(Database.db_profile)
+            all_users: dict = Database.readDatabase(Database.db_profile)
             for uuid, data in all_users.items():
-                if not data['email'] == email:
-                    return None
-                return cls.findUserById(uuid)
-        except:
+                if data['email'] == email:
+                    return cls.findUserById(uuid)
+            return None
+        except Exception:
             raise
-        return None
     
     @classmethod
     def findUserById(cls, userid):

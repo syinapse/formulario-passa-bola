@@ -173,7 +173,9 @@ def admin_myEvents_page(id):
       if attemptedUser:
         user_events_id = attemptedUser.events
         for event_id in user_events_id:
-          userEvents.append(Events.findEventById(event_id))  
+          event = Events.findEventById(event_id)
+          if event:
+            userEvents.append(event)  
       userEventsTotal = len(userEvents)
 
       return render_template('adminPages/myEvents.html', userEvents=userEvents, userEventsTotal=userEventsTotal)
