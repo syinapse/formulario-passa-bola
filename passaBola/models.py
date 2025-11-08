@@ -48,11 +48,11 @@ class Player():
             data = load(pl)
         return data["players"]
     
-    def writeNewPlayer(self):
-        db = Database.readDatabase()
+    def writeNewPlayer(self, event_id):
+        db = Database.readDatabase(Database.db_registers)
         newPlayer = self.__dict__ 
         newPlayer['birthday'] = newPlayer['birthday'].strftime("%d-%m-%Y")
-        db['players'].append(newPlayer)
+        db[event_id]['players'].append(newPlayer)
         with open(database_path, "w") as pl:
             dump(db, pl)
 
@@ -73,16 +73,16 @@ class Teams():
             data = load(tm)
         return data['teams']
     
-    def writeTeams(self):
-        db = Database.readDatabase()
+    def writeTeams(self, event_id):
+        db = Database.readDatabase(Database.db_registers)
 
         newTeam = self.__dict__.copy()
         
-        if newTeam['players']:
+        if newTeam[event_id]['players']:
             for i in range(len(newTeam["players"])):
-                newTeam['players'][i] = newTeam['players'][i].__dict__.copy()
+                newTeam[event_id]['players'][i] = newTeam[event_id]['players'][i].__dict__.copy()
 
-        db['teams'].append(newTeam)
+        db[event_id]['teams'].append(newTeam)
         with open(database_path, 'w') as tm:
             dump(db, tm)
 
@@ -157,17 +157,21 @@ class Events():
 
         return None
     
-    def writeNewEvent(self):
+    def writeNewEvent(self, user_id):
         """
         Write the current new user created on JSON database
         """
         path = Database.db_events
         data:dict = Database.readDatabase(path)
+        users:dics = Database.readDatabase(Database.db_profile)
         newEvent = self.__dict__.copy()
         del newEvent['id']
         data[self.id] = (newEvent)
+        users[user_id]['events'].append(self.id)
         with open(path, "w") as f:
             dump(data, f)
+        with open(Database.db_profile, "w") as f:
+            dump(users, f)
 
 
 class User(UserMixin):

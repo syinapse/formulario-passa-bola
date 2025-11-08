@@ -10,7 +10,7 @@ content %}
       Home
     </a>
     <a
-      href="{{ url_for('admin_newEvent_page') }}"
+      href="{{ url_for('admin_newEvent_page', id=current_user.get_id()) }}"
       id="btnWriteEvent"
       class="{% if request.endpoint == 'admin_newEvent_page'%}bg-pb-primary{%endif%}"
     >

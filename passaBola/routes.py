@@ -69,7 +69,7 @@ def event_page(event_id = None):
                               email=form.email.data.lower(),
                               phone=form.phone.data,
                               instagram=form.instagram.data)
-          newPlayer.writeNewPlayer()
+          newPlayer.writeNewPlayer(event.id)
           return redirect(url_for("complete_page"))
       
       if form.errors != {}:
@@ -77,10 +77,8 @@ def event_page(event_id = None):
               for e in errors:
                 flash(f'{e}', category='danger')  
 
-    # Lógica para o formulário de inscrição de times.
     if formType == 'teams':    
       if teamForm.validate_on_submit():  
-          # Cria uma nova instância da classe Teams.
           newTeam = Teams(cnpj=teamForm.cnpj.data,
                           team_name=teamForm.team_name.data,
                           president_name=teamForm.president_name.data,
@@ -88,23 +86,20 @@ def event_page(event_id = None):
                           state=teamForm.teamState.data,
                           phone=teamForm.teamPhone.data)
           
-          # Tenta processar a lista de jogadoras inserida no campo de texto.
           try:
             playersList = []
             temp = teamForm.players.data.strip().splitlines()
-            # Itera sobre cada linha (cada jogadora) para criar objetos Player.
             for pl in temp:
                 split = pl.split('-')
                 newPlayer = Player.TeamsPlayers(cpf=split[1].strip(), name=split[0].strip())
-                # Adicionando a lista de jogadoras formatadas
                 playersList.append(newPlayer)
 
             # Adiciona a lista de jogadoras ao objeto do time e salva no JSON.
             newTeam.players = playersList
-            newTeam.writeTeams()
+            newTeam.writeTeams(event.id)
             return redirect(url_for("complete_page"))
           except Exception:
-            flash("Ocorreu um erro enviar o formulário de Times. Confira os campos e tente novamente")
+            flash("Ocorreu um erro enviar o formulário de Times. Confira os campos e tente novamente", category='danger')
 
       # Se houver erros de validação no formulário do time, exibe as mensagens.
       if teamForm.errors != {}:
@@ -131,6 +126,7 @@ def admin_page():
 @login_required
 def admin_newEvent_page():
     eventForm = EventForm()
+    user_id = str(request.args.get('id'))
 
     if eventForm.validate_on_submit():
       try:
@@ -155,7 +151,7 @@ def admin_newEvent_page():
                 instagram=eventForm.instagram_link.data,
                 whats=eventForm.whatsapp_link.data
             ) 
-        newEvent.writeNewEvent()
+        newEvent.writeNewEvent(user_id)
         flash("O novo evento foi criado com sucesso!", category='success')
 
       except Exception as e:
