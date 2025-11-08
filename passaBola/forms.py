@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 states = getStatesAtTuple()
 
 class PlayerForm(FlaskForm):
-    data = Database.readDatabase(Database.db_main)
+    data = Database.readDatabase(Database.db_registers)
 
     def validate_email(self, email_to_check):
         for i in range(len(self.data)):

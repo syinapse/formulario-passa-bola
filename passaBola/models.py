@@ -52,8 +52,13 @@ class Player():
         db = Database.readDatabase(Database.db_registers)
         newPlayer = self.__dict__ 
         newPlayer['birthday'] = newPlayer['birthday'].strftime("%d-%m-%Y")
+        if event_id not in db.keys():
+            db[event_id] = {
+                "players": [],
+                "teams": []
+            }
         db[event_id]['players'].append(newPlayer)
-        with open(database_path, "w") as pl:
+        with open(Database.db_registers, "w") as pl:
             dump(db, pl)
 
 class Teams():
@@ -77,14 +82,16 @@ class Teams():
         db = Database.readDatabase(Database.db_registers)
 
         newTeam = self.__dict__.copy()
-        
-        if newTeam[event_id]['players']:
-            for i in range(len(newTeam["players"])):
-                newTeam[event_id]['players'][i] = newTeam[event_id]['players'][i].__dict__.copy()
+        newTeam["players"] = [p.__dict__.copy() for p in self.players] if self.players else []
 
-        db[event_id]['teams'].append(newTeam)
-        with open(database_path, 'w') as tm:
+        if event_id not in db:
+            db[event_id] = {"players": [], "teams": []}
+
+        db[event_id]["teams"].append(newTeam)
+
+        with open(Database.db_registers, "w") as tm:
             dump(db, tm)
+
 
     @staticmethod
     def formatPlayers(newPlayer):
@@ -247,7 +254,7 @@ class User(UserMixin):
 class Database():
     db_profile = Path("./passaBola/database/profiles.json")
     db_events = Path("./passaBola/database/events.json")
-    db_registers = Path("./passaBola/database/events_register.json")
+    db_registers = Path("./passaBola/database/events_registers.json")
     db_main = Path("./passaBola/database/database.json")
 
     @staticmethod
