@@ -1,118 +1,130 @@
-# ⚽ Formulário de eventos Passa a bola
+# ⚽ Formulário de Eventos Passa a Bola
 
-O Projeto consiste em um portal web de inscrições de jogadoras e times para o evento **_Copa Passa a bola_** desenvolvido em Python Flask com Javascript, LocalStorage e chamadas de APIs como **BrasilAPI, ReceitaWS e CPFhubIo**. Todas as pessoas e times inscritos são armazenados no _**Database JSON**_ contido no Projeto com seus devidos **documentos criptografados**.
+Aplicação web de cadastro de jogadoras e equipes para a competição **Copa Passa a Bola**, desenvolvida em **Python (Flask)**, **JavaScript** e **LocalStorage**.  
+Todas as inscrições (jogadoras e times) são armazenadas em uma base de dados local em formato **JSON**, com senhas criptografadas.
 
-> [!IMPORTANT]
-> O Projeto está em desenvolvimento, portanto podem ocorrer bugs
-## Desenvolvido por Synapse
-* Carlos Eduardo Sanches Mariano RM: 561756
-* Leonardo Eiji Kina RM: 562784
-* Luís Scacchetti Mariano RM: 562241
-* Rodrigo do Santos Abubakir RM: 561479
-* Vitor Ramos de Farias RM: 561958
+---
 
 
-##  Como executar o Projeto
+## 📋 Sumário
+- [Características Principais](#características-principais)
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+- [Como Executar](#como-executar)
+- [Banco de Dados e Exemplo](#banco-de-dados-e-exemplo)
+- [APIs Externas](#apis-externas)
+- [Contribuição](#contribuição)
 
-### Clone o Projeto no diretório atual
-```bash
-git clone https://github.com/syinapse/formulario-passa-bola.git .
+---
+
+## 🏆 Características Principais
+- Cadastro de **jogadoras** individuais e **times** para o evento.
+- Cada jogadora e cada time possuem um **UUID único**.
+- Validação de documentos **CPF/CNPJ** via API externa.
+- Consulta e validação de **UFs e endereços**.
+- Armazenamento em **arquivos JSON** para prototipagem local.
+- Interface simples e responsiva para gestão dos cadastros.
+- Integração com **Flask** para rotas dinâmicas.
+- Painel administrativo para criação e listagem de eventos.
+
+---
+
+## 🧠 Tecnologias Utilizadas
+- **Python 3.x**
+- **Flask**
+- **HTML5 / CSS3 / JavaScript**
+- **Bootstrap 5**
+- **APIs**: BrasilAPI
+- **Armazenamento local**: JSON
+
+---
+
+## 📂 Estrutura do Projeto
+
 ```
-**_Remova o ponto no final caso deseje criar uma nova pasta para o clone_**
-```bash
-git clone https://github.com/syinapse/formulario-passa-bola.git
-
-cd formulario-passa-bola/
+formulario-passa-bola/
+│
+├── passaBola/                 # Código principal da aplicação Flask
+│   ├── static/                # Arquivos estáticos (CSS, JS, imagens)
+│   ├── templates/             # Templates HTML com Jinja2
+│   ├── models/                # Classes e lógica de banco de dados
+│   └── __init__.py
+│
+├── run.py                     # Script para inicializar o servidor Flask
+├── requirements.txt           # Dependências do projeto
+└── database/                  # Armazenamento em JSON (usuários e eventos)
 ```
 
-### Instale as dependências
-#### Windows, Linux (Debian/Fedora)
-```bash
-pip install -r requirements.txt
-```
-#### Distribuições Arch Linux
-Crie um ambiente virtual e use o ```pipx```:
-```bash
-pipx install cookiecutter
-pipx runpip cookicutter install -r requirements.txt
-```
+---
 
-### Execute o Projeto
+## 🚀 Como Executar
 
-#### Windows
-```bash
-python run.py
-```
+1. **Clone o repositório:**
+   ```bash
+   git clone https://github.com/syinapse/formulario-passa-bola.git
+   cd formulario-passa-bola
+   ```
 
-#### Linux
-```bash
-python3 run.py
-```
+2. **Crie e ative um ambiente virtual:**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate   # Linux/Mac
+   venv\Scripts\activate    # Windows
+   ```
 
-## 📂 Estrutura do Database JSON
+3. **Instale as dependências:**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-As inscrições são armazenadas em duas chaves principais:
+4. **Execute o servidor Flask:**
+   ```bash
+   python run.py
+   ```
 
-- **players** → Jogadoras individuais
+5. Acesse no navegador:
+   ```
+   http://localhost:5000
+   ```
 
-- **teams** → Times cadastrados
+---
 
-Sempre que um clube adiciona uma jogadora no último campo do formulário, ela também é registrada como jogadora individual no sistema, recebendo um UUIDv7 único.
+## 🗃️ Banco de Dados e Exemplo
 
-### 🎯 Exemplo - Jogadoras Individuais
-> [!NOTE]
-> Os dados abaixo são fictícios e servem apenas para fins ilustrativos.
+Os dados são armazenados em formato JSON no diretório `database/`.  
+Exemplo de estrutura de usuário:
 
 ```json
 {
- "players": [
-    {
-      "id": "068c600c-4b0b-7a57-8000-4e9411cec976",
-      "cpf": "1735681531",
-      "full_name": "Regina dos Santos",
-      "birthday": "02-05-2006",
-      "email": "regina@email.com",
-      "phone": "11983767352",
-      "city": "mg",
-      "instagram": "@regina.santos"
-    }
- ]
+  "019a42d2-46ca-782c-9956-ef6c5f56ea52": {
+    "username": "teste",
+    "email": "teste@gmail.com",
+    "password": "hash",
+    "cpf": "12345678901",
+    "phone": "11987654321",
+    "state": "SP",
+    "events": ["0690ab9a-eeaa-7266-8000-0e64d947c292"]
+  }
 }
 ```
 
+---
 
-### 🎯 Exemplo - Times
+## 🌎 APIs Externas
 
-```json
-{
-    "teams": [
-    {
-        "id": "068c633a-4d92-7d38-8000-0bd83740c427",
-        "cnpj": "1678361723000151",
-        "team_name": "Time de Varzea",
-        "president_name": "Pedro Rodigues",
-        "email": "pedro@exemplo.com",
-        "phone": "11999999999",
-        "city": "sp",
-        "players": [
-            {
-                "id": "068c633a-4d92-7eca-8000-b5eb652269b9",
-                "cpf": "1234567890",
-                "full_name": "Maria de Souza",
-                "birthday": null,
-                "email": null,
-                "phone": null,
-                "city": null,
-                "instagram": "Nao indicado"
-            },
-        ]
-     }
-    ]
-}
-```
+O sistema utiliza as seguintes APIs para validações e preenchimento automático:
 
+- [BrasilAPI](https://brasilapi.com.br) — validação de CEP e estados.  
 
-## 🌐 Acesso as APIS utilizadas
-- [BrasilAPI](https://brasilapi.com.br/docs#tag/IBGE/paths/~1ibge~1uf~1v1/get): Retorna todos os estados e unidaddes de federação do Brasil
-- [ReceitaWS](https://developers.receitaws.com.br/#/operations/queryRFFree): Pesquisa e verifica se o CNPJ informado existe na receita federal.
-- [CPFHubio](https://www.cpfhub.io): Pesquisa e verifica se o CPF informado é válido.
+---
+
+## 🤝 Contribuição
+
+Contribuições são bem-vindas!  
+1. Faça um fork do projeto.
+2. Crie uma branch com sua feature (`git checkout -b minha-feature`).  
+3. Faça o commit (`git commit -m 'feat: adiciona nova funcionalidade'`).  
+4. Envie o push (`git push origin minha-feature`).  
+5. Abra um Pull Request!
+
+---
