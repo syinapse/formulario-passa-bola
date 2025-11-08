@@ -16,3 +16,11 @@ def getStatesAtTuple():
         allStates.append((uf.lower(), name))
 
     return allStates
+
+
+def getStateByUf(uf:str):
+    all_states = getBrazilStates()
+    uf = uf.upper()
+    if uf not in all_states:
+        return None
+    return all_states[uf]

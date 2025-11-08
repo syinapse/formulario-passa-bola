@@ -137,7 +137,7 @@ class Events():
                 state=foundedEvent['state'],
                 begin_date=foundedEvent['eventDates']['start'],
                 end_date=foundedEvent['eventDates']['end'],
-                event_description=['event_description'],
+                event_description=foundedEvent['event_description'],
                 reward_description=foundedEvent['reward_description'],
                 min_age=foundedEvent['eventAge']['min'],
                 max_age=foundedEvent['eventAge']['max'],

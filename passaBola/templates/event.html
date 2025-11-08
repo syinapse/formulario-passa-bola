@@ -12,7 +12,7 @@
       <a href="https://www.instagram.com/{{ event.instagram }}/" target="_blank"><i class="fab fa-instagram"></i></a>
     </div>
 
-    <h1 class="Campeonato">{{ event.title }}</h1>
+    <h1 class="Campeonato">{{ event.title.upper() }}</h1>
 
     <div class="event-details">
       <span><i class="fas fa-map-marker-alt"></i>{{ event.state }}</span>
@@ -25,6 +25,7 @@
       <ol>
         <li>
           <strong>Sobre o Campeonato</strong>
+          <br>
           {{ event.event_description }}
         </li>
         <li>

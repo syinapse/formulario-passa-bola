@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}
-  Inscrição enviada!
+  Inscrição Concluída
 {% endblock %}
 
 {% block csslink %} 
@@ -13,8 +13,8 @@
     <main>
         <div class="main-container">
             <h1>Incrição concluída com sucesso!</h1>
-            <p>A sua inscrição realizada no evento <span>NOME_EVENTO</span> foi realizada e registrada no sistema Passa a Bola! Confira o seu email para qualquer atualização do evento!</p>
-            <a class="btn-return" href="{{url_for('event_page')}}">Retornar</a>
+            <p>A sua inscrição realizada no evento foi realizada e registrada no sistema Passa a Bola! Confira o seu email para qualquer atualização do evento!</p>
+            <a class="btn-return" href="{{ url_for('home_page' )}}">Retornar</a>
         </div>
     </main>
 {% endblock %}

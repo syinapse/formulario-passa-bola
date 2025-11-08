@@ -4,7 +4,7 @@ from passaBola import app,cpf_api_key
 from flask import render_template, flash, redirect, url_for, request
 from passaBola.forms import PlayerForm, TeamForm, LoginForm, EventForm
 from passaBola.models import Player, Teams, User, Events, Database
-from passaBola.brasilApi import getBrazilStates
+from passaBola.brasilApi import getBrazilStates, getStateByUf
 from flask_login import login_user, logout_user, login_required
 import os
 
@@ -49,7 +49,8 @@ def event_page(event_id = None):
         flash(f'ERRO: Informe um ID antes de acessar os eventos', category='danger')
         return redirect(url_for('home_page'))
 
-    event = Events.findEventById(event_id)
+    event = Events.findEventById(str(event_id))
+    event.state = getStateByUf(event.state)
     if not event:
         flash(f'Evento não encontrado. Acesse um evento existente', category='warning')
         return redirect(url_for('home_page'))
@@ -57,14 +58,10 @@ def event_page(event_id = None):
     form = PlayerForm(state="")
     teamForm = TeamForm(teamState="")
 
-    # Verifica qual formulário foi enviado pelo usuário (individual ou de times).
     formType = request.form.get('form_type')
 
-    # Lógica para o formulário de inscrição individual.
     if formType == 'individuals':
-      # Valida os dados do formulário no envio.
       if form.validate_on_submit():
-        # Cria uma nova instância da classe Player com os dados do formulário.
           newPlayer = Player( cpf=form.cpf.data, 
                               birthday=form.birthday.data,
                               full_name=form.full_name.data,
@@ -72,12 +69,9 @@ def event_page(event_id = None):
                               email=form.email.data.lower(),
                               phone=form.phone.data,
                               instagram=form.instagram.data)
-          # Salva a nova jogadora no "banco de dados" JSON.
           newPlayer.writeNewPlayer()
-          # Redireciona para a página de conclusão.
           return redirect(url_for("complete_page"))
       
-      # Se houver erros de validação, exibe as mensagens para o usuário.
       if form.errors != {}:
           for errors in form.errors.values():
               for e in errors:
